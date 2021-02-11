@@ -41,5 +41,5 @@ pip install git+https://github.com/5yutan5/tensile-LCR-tester
 ```
 and
 ```
-pip install pyqt psutil pyserial qtpy qdarkstyle
+pip install pyqt5 psutil pyserial qtpy qdarkstyle
 ```
