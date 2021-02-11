@@ -3,7 +3,7 @@ This application controls Hioki's LCR meter and Sigma Kouki's stage controller a
 
 **This is an unfinished project.**
 
-![Main Application Window](image\Main_application_window.png)
+![Main Application Window](image/Main_application_window.png)
 
 ## Corresponding devices
 
@@ -70,4 +70,4 @@ tltester
 
 The application will launch and the device connection dialog will be displayed.
 
-![Application start window](image\Application_start_window.png)
+![Application start window](image/Application_start_window.png)
