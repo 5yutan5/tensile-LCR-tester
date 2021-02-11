@@ -5,7 +5,7 @@ from AutoLab.utils.qthelpers import qapplication
 from tester.app.mainwindow import MainWindow
 
 
-def start():
+def main():
     app = qapplication()
     style = app.styleSheet()
     app.setStyleSheet(qdarkstyle.load_stylesheet(qt_api="pyqt5") + style)
@@ -16,4 +16,4 @@ def start():
 
 
 if __name__ == "__main__":
-    start()
+    main()
