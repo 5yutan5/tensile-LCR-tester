@@ -43,3 +43,15 @@ and
 ```
 pip install pyqt5 psutil pyserial qtpy qdarkstyle
 ```
+
+## Get start
+
+The following command enter the terminal.
+
+```
+tltester
+```
+
+The application will launch and the device connection dialog will be displayed.
+
+![Application window]()
