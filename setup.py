@@ -24,8 +24,8 @@ setup(
     ],
     entry_points={"gui_scripts": ["tltester = tester.app.start:main"]},
     setup_requires=[
-        "git+https://github.com/5yutan5/AutoLab",
-        "git+https://github.com/5yutan5/DeviceController",
+        "https://github.com/5yutan5/AutoLab",
+        "https://github.com/5yutan5/DeviceController",
     ],
     python_requires=">=3.9",
 )
