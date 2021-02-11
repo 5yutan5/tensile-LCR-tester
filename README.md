@@ -1,9 +1,25 @@
 # tensile-LCR-tester
-This application controls Hioki's LCR meter (IM3536) and Sigma Kouki's stage controller (controller: shot-702, stage: SGSP-26-200) at the same time.
+This application controls Hioki's LCR meter and Sigma Kouki's stage controller at the same time.
 
-This module is currently in production.
+**This is an unfinished project.**
 
-## Runtime Dependencies
+![Main Application Window](image\Main_application_window.png)
+
+## Corresponding devices
+
+The following devices are supported.
+
+- [LCR METER IM3536 - Hioki](https://www.hioki.com/en/products/detail/?product_key=5824)
+- [2 axis Stage Controller Shot702 - OptoSigma](https://www.global-optosigma.com/en_jp/Catalogs/gno/?from=page&pnoname=SHOT-702&ccode=W9045&dcode=&gnoname=SHOT-702)
+- [Translation Motorized Stages SGSP26-200(Z) - OptoSigma](https://www.global-optosigma.com/en_jp/Catalogs/gno/?from=page&pnoname=SGSP26-%28Z%29&ccode=W9016&dcode=&gnoname=SGSP26-200%28Z%29)
+
+It is necessary to install the driver for the device in advance.
+
+[LCR METER IM3536 driver](https://www.hioki.com/en/support/versionup/detail/?downloadid=380)
+
+[2 axis Stage Controller Shot702 driver](https://www.global-optosigma.com/en_jp/software/sample_en.html)
+
+## Runtime dependencies
 
 **Important Note**: Most all of the dependencies listed below will not be installed automatically. So you need to install them.
 
@@ -44,7 +60,7 @@ and
 pip install pyqt5 psutil pyserial qtpy qdarkstyle
 ```
 
-## Get start
+## Get started
 
 The following command enter the terminal.
 
@@ -54,4 +70,4 @@ tltester
 
 The application will launch and the device connection dialog will be displayed.
 
-![Application window]()
+![Application start window](image\Application_start_window.png)
