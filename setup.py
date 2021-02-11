@@ -22,8 +22,10 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    entry_points = {
-        'gui_scripts': ['tltester = tester.app.start:main']
-    },
+    entry_points={"gui_scripts": ["tltester = tester.app.start:main"]},
+    setup_requires=[
+        "git+https://github.com/5yutan5/AutoLab",
+        "git+https://github.com/5yutan5/DeviceController",
+    ],
     python_requires=">=3.9",
 )
