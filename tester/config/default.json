@@ -1,0 +1,8 @@
+{
+    "LCRMeter.boadrate": 9600,
+    "LCRMeter.communicationSpeed": "FAST",
+    "LCRMeter.timeout": 5,
+    "stageController.MinimumSpeed": 500,
+    "stageController.AccelerationandDecelerationTime": 10,
+    "stageController.JudgeBusyInterval": 50
+}
