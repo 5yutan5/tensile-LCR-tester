@@ -23,6 +23,6 @@ setup(
         "Operating System :: OS Independent",
     ],
     entry_points={"gui_scripts": ["tltester = tester.app.start:main"]},
-    setup_requires=["autolab @ git+https://github.com/5yutan5/AutoLab"],
+    setup_requires=["AutoLab @ git+https://github.com/5yutan5/AutoLab"],
     python_requires=">=3.9",
 )
