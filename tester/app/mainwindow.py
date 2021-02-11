@@ -4,17 +4,15 @@ from AutoLab.utils.icon_manager import IconName, icon
 from AutoLab.utils.qthelpers import create_action
 from AutoLab.widgets.dialog import CSVSaveFileDialog
 from AutoLab.widgets.status import CPUStatus, MemoryStatus
-from LCR_LinearStage.app.mainwindow_ui import MainWindowUI
-from LCR_LinearStage.app.mode.context import ModeContext
-from LCR_LinearStage.config.manager import get_settings
-from LCR_LinearStage.device.hioki_lcrmeter import LCRMeterIM3536
-from LCR_LinearStage.device.manager import DeviceStatus
-from LCR_LinearStage.device.optoSigma_stage_controller import \
-    StageControllerShot702
-from LCR_LinearStage.widgets.manager import (DeviceConnectingManager,
-                                             StageControlManager)
+from DeviceController.hioki_lcrmeter import LCRMeterIM3536
+from DeviceController.optoSigma_stage_controller import StageControllerShot702
 from PyQt5.QtCore import Qt, pyqtSlot
 from PyQt5.QtWidgets import QActionGroup, QMainWindow
+from tester.app.mainwindow_ui import MainWindowUI
+from tester.app.mode.context import ModeContext
+from tester.config.manager import get_settings
+from tester.device.manager import DeviceStatus
+from tester.widgets.manager import DeviceConnectingManager, StageControlManager
 
 
 class MainWindow(QMainWindow):

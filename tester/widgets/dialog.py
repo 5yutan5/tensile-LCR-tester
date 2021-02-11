@@ -1,6 +1,6 @@
 from AutoLab.widgets.dialog import CriticalErrorMessageBox
-from LCR_LinearStage.widgets.status import CustomStatusBar
 from PyQt5.QtWidgets import QWidget
+from tester.widgets.status import CustomStatusBar
 
 
 class DeviceErrorMessageBox(CriticalErrorMessageBox):

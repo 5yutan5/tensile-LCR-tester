@@ -1,7 +1,7 @@
 from enum import Enum
 
-from LCR_LinearStage.app.mode.state import CycleMode, LCRMode, ModeState, StepMode
 from PyQt5.QtWidgets import QMainWindow
+from tester.app.mode.state import CycleMode, LCRMode, ModeState, StepMode
 
 
 class ModeContext:

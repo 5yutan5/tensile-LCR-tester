@@ -1,4 +1,4 @@
-from LCR_LinearStage.device.hioki_lcrmeter import PARAMETER
+from DeviceController.hioki_lcrmeter import PARAMETER
 from PyQt5.QtWidgets import QComboBox
 
 

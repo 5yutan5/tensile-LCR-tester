@@ -2,7 +2,7 @@ import sys
 
 import qdarkstyle
 from AutoLab.utils.qthelpers import qapplication
-from LCR_LinearStage.app.mainwindow import MainWindow
+from tester.app.mainwindow import MainWindow
 
 
 def start():

@@ -1,23 +1,13 @@
 from AutoLab.utils.qthelpers import add_qLabel, create_tool_button
 from AutoLab.widgets.action_handler import ToolBar
 from AutoLab.widgets.util import IntSlider, PathNameLine
-from LCR_LinearStage.config.manager import Settings
-from LCR_LinearStage.widgets.combobox import IM3536ParameterCombobox
-from LCR_LinearStage.widgets.status import CustomStatusBar
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import (
-    QCheckBox,
-    QFormLayout,
-    QGroupBox,
-    QHBoxLayout,
-    QMainWindow,
-    QPlainTextEdit,
-    QSizePolicy,
-    QSpinBox,
-    QTabWidget,
-    QVBoxLayout,
-    QWidget,
-)
+from PyQt5.QtWidgets import (QCheckBox, QFormLayout, QGroupBox, QHBoxLayout,
+                             QMainWindow, QPlainTextEdit, QSizePolicy,
+                             QSpinBox, QTabWidget, QVBoxLayout, QWidget)
+from tester.config.manager import Settings
+from tester.widgets.combobox import IM3536ParameterCombobox
+from tester.widgets.status import CustomStatusBar
 
 
 class TabMain(QWidget):
@@ -216,7 +206,7 @@ def test():
     import sys
 
     from AutoLab.utils.qthelpers import qapplication
-    from LCR_LinearStage.config.manager import get_settings
+    from tester.config.manager import get_settings
 
     app = qapplication()
     win = QMainWindow()

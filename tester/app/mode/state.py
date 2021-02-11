@@ -1,15 +1,14 @@
-# from LCR_LinearStage.app.mainwindow import MainWindow
 from io import TextIOWrapper
 
 from AutoLab.utils.icon_manager import IconName, icon
 from AutoLab.utils.qthelpers import create_timer, reconnect_slot, sleep_nonblock_window
-from LCR_LinearStage.device.hioki_lcrmeter import PARAMETER, LCRMeterIM3536
-from LCR_LinearStage.device.optoSigma_stage_controller import StageControllerShot702
-from LCR_LinearStage.widgets.dialog import DeviceErrorMessageBox
+from DeviceController.hioki_lcrmeter import PARAMETER, LCRMeterIM3536
+from DeviceController.optoSigma_stage_controller import StageControllerShot702
 from PyQt5.QtCore import QObject, pyqtSlot
 from PyQt5.QtWidgets import QMainWindow
 from serial import SerialException
 from serial.serialutil import PortNotOpenError
+from tester.widgets.dialog import DeviceErrorMessageBox
 
 
 class MeasureHandler:

@@ -1,20 +1,33 @@
 from AutoLab.utils.icon_manager import IconName, icon
-from AutoLab.utils.qthelpers import (add_qLabel, create_action,
-                                     create_push_button, create_timer,
-                                     create_tool_button,
-                                     popup_exception_message)
+from AutoLab.utils.qthelpers import (
+    add_qLabel,
+    create_action,
+    create_push_button,
+    create_timer,
+    create_tool_button,
+    popup_exception_message,
+)
 from AutoLab.widgets.combobox import PortCombobox
 from AutoLab.widgets.util import IntSlider
-from LCR_LinearStage.device.hioki_lcrmeter import LCRMeterIM3536
-from LCR_LinearStage.device.manager import DeviceStatus
-from LCR_LinearStage.device.optoSigma_stage_controller import \
-    StageControllerShot702
-from LCR_LinearStage.widgets.dialog import DeviceErrorMessageBox
+from DeviceController.hioki_lcrmeter import LCRMeterIM3536
+from DeviceController.optoSigma_stage_controller import StageControllerShot702
 from PyQt5.QtCore import QSize, Qt, pyqtSlot
-from PyQt5.QtWidgets import (QButtonGroup, QComboBox, QDialog, QFormLayout,
-                             QGridLayout, QGroupBox, QHBoxLayout, QLabel,
-                             QSizePolicy, QVBoxLayout, QWidget)
+from PyQt5.QtWidgets import (
+    QButtonGroup,
+    QComboBox,
+    QDialog,
+    QFormLayout,
+    QGridLayout,
+    QGroupBox,
+    QHBoxLayout,
+    QLabel,
+    QSizePolicy,
+    QVBoxLayout,
+    QWidget,
+)
 from serial import SerialException
+from tester.device.manager import DeviceStatus
+from tester.widgets.dialog import DeviceErrorMessageBox
 
 
 class DeviceConnectingManager(QDialog):
@@ -36,7 +49,7 @@ class DeviceConnectingManager(QDialog):
         self._lcr_combobox_baudrate = QComboBox()
         self._lcr_t_button_connect = create_tool_button(is_text_beside_icon=True)
         # self._stage_combobox_port = PortCombobox(StageControllerShot702.PORT_FILTER)
-        self._stage_combobox_port = PortCombobox('')
+        self._stage_combobox_port = PortCombobox("")
         self._stage_t_button_connect = create_tool_button(is_text_beside_icon=True)
 
         self._action_connect_lcr = create_action(
@@ -49,7 +62,7 @@ class DeviceConnectingManager(QDialog):
             self,
             text="Disconnect Port",
             icon=icon(IconName.DISCONNECT),
-            triggered=self._disconnect_lcr
+            triggered=self._disconnect_lcr,
         )
         self._action_connect_stage_controller = create_action(
             self,
@@ -61,7 +74,7 @@ class DeviceConnectingManager(QDialog):
             self,
             text="Disconnect Port",
             icon=icon(IconName.DISCONNECT),
-            triggered=self._disconnect_stage_controller
+            triggered=self._disconnect_stage_controller,
         )
 
         self._setup()
@@ -175,7 +188,7 @@ class StageControlManager(QDialog):
         self,
         controller: StageControllerShot702,
         controller_status: DeviceStatus,
-        parent: QWidget = None
+        parent: QWidget = None,
     ):
         super().__init__(parent=parent)
         self._controller = controller
