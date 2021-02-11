@@ -7,7 +7,7 @@ with open("README.md", "r") as f:
 description = """This application controls Hioki's LCR meter (IM3536) and Sigma Kouki's stage controller (controller: shot-702, stage: SGSP-26-200) at the same time."""
 
 setup(
-    name="DeviceController",
+    name="TLTester",
     version="0.1.0",
     author="Yakitori",
     author_email="4yutan4@gmail.com",
