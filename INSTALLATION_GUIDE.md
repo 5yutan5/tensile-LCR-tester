@@ -21,16 +21,6 @@ After installing the installer,  you install python following the guide.
 ## Install library
 
 After the python installation is complete, you launch a command prompt to install the library.
-
-If you are using an environment that has an integrated terminal(like VSCode, Pycharm etc...), you can also install from there.
-Since I love VSCode, I will explain using VSCode below.
-
-[Visual Studio Code | Microsoft](https://code.visualstudio.com/download)
-
-Press `Ctrl + Shift + @` to start the integrated terminal.
-
-![Integrated_terminal](image/Integrated_terminal.png)
-
 You will use the launched terminal to install the library.
 
 First, you will install self made library from github using the pip command.
