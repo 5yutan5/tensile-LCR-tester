@@ -4,7 +4,7 @@ This is a guide to support beginners who are new to python.
 
 OS is only windows.
 
-# Install Git
+## Install Git
 
 You need to install git because you need to install the library from GitHub.
 [Git for windows](https://gitforwindows.org/)
@@ -47,7 +47,7 @@ pip install pyqt5 psutil pyserial qtpy qdarkstyle
 
 The installation is now complete.
 
-# Get started
+## Get started
 
 You type `tltester` in the terminal, and if you see window like the one below, you have succeeded.
 
