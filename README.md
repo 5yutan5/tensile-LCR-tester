@@ -35,6 +35,7 @@ It is necessary to install the driver for the device in advance.
 ## Installation
 
 It can be installed with both pip and conda, but installing with conda is deprecated.
+If you are a beginner in python, please refer to the [installation guide](https://github.com/5yutan5/tensile-LCR-tester/blob/main/INSTALLATION_GUIDE.md) to get started.
 
 ### Use conda
 
