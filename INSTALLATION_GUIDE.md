@@ -4,6 +4,11 @@ This is a guide to support beginners who are new to python.
 
 OS is only windows.
 
+# Install Git
+
+You need to install git because you need to install the library from GitHub.
+[Git for windows](https://gitforwindows.org/)
+
 ## Install Python
 
 If you don't have python, install it from the official website.
