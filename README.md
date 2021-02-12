@@ -39,9 +39,7 @@ It can be installed with both pip and conda, but installing with conda is deprec
 ### Use conda
 
 ```
-pip install git+https://github.com/5yutan5/AutoLab
-pip install git+https://github.com/5yutan5/DeviceController
-pip install git+https://github.com/5yutan5/tensile-LCR-tester
+pip install git+https://github.com/5yutan5/AutoLab git+https://github.com/5yutan5/DeviceController git+https://github.com/5yutan5/tensile-LCR-tester
 ```
 and
 ```
@@ -51,9 +49,7 @@ conda install pyqt psutil pyserial qtpy qdarkstyle
 ### Use pip
 
 ```
-pip install git+https://github.com/5yutan5/AutoLab
-pip install git+https://github.com/5yutan5/DeviceController
-pip install git+https://github.com/5yutan5/tensile-LCR-tester
+pip install git+https://github.com/5yutan5/AutoLab git+https://github.com/5yutan5/DeviceController git+https://github.com/5yutan5/tensile-LCR-tester
 ```
 and
 ```
