@@ -29,8 +29,8 @@ It is necessary to install the driver for the device in advance.
 - pyserial 3.5+
 - qdarkstyle
 - qtpy
-- 5yutan5/AutoLab
-- 5yutan5/DeviceController
+- [5yutan5/AutoLab](https://github.com/5yutan5/AutoLab)
+- [5yutan5/DeviceController](https://github.com/5yutan5/DeviceController)
 
 ## Installation
 
