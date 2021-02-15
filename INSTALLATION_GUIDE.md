@@ -32,7 +32,7 @@ pip install git+https://github.com/5yutan5/AutoLab git+https://github.com/5yutan
 Next, you install the dependent libraries from PyPI.
 
 ```
-pip install pyqt5 psutil pyserial qtpy qdarkstyle
+pip install pyside6 psutil pyserial
 ```
 
 The installation is now complete.
