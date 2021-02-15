@@ -1,6 +1,6 @@
 from enum import Enum
 
-from PyQt5.QtWidgets import QMainWindow
+from PySide6.QtWidgets import QMainWindow
 from tester.app.mode.state import CycleMode, LCRMode, ModeState, StepMode
 
 

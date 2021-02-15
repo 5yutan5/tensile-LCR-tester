@@ -1,10 +1,18 @@
-from AutoLab.utils.qthelpers import add_qLabel, create_tool_button
-from AutoLab.widgets.action_handler import ToolBar
-from AutoLab.widgets.util import IntSlider, PathNameLine
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import (QCheckBox, QFormLayout, QGroupBox, QHBoxLayout,
-                             QMainWindow, QPlainTextEdit, QSizePolicy,
-                             QSpinBox, QTabWidget, QVBoxLayout, QWidget)
+from AutoLab.utils.qthelpers import add_unit, create_tool_button
+from AutoLab.widgets.utility_widgets import IntSlider, PathLine
+from AutoLab.widgets.wrapper_widgets import AHBoxLayout, AToolBar, AVBoxLayout
+from PySide6.QtCore import Qt
+from PySide6.QtWidgets import (
+    QCheckBox,
+    QFormLayout,
+    QGroupBox,
+    QMainWindow,
+    QPlainTextEdit,
+    QSizePolicy,
+    QSpinBox,
+    QTabWidget,
+    QWidget,
+)
 from tester.config.manager import Settings
 from tester.widgets.combobox import IM3536ParameterCombobox
 from tester.widgets.status import CustomStatusBar
@@ -14,7 +22,7 @@ class TabMain(QWidget):
     def __init__(self) -> None:
         super().__init__()
         # member
-        self.pathname_line = PathNameLine()
+        self.pathname_line = PathLine()
         self.checkbox_save_to_file = QCheckBox("Save to File")
 
         self.t_button_open_filedialog = create_tool_button(is_text_beside_icon=True)
@@ -40,23 +48,23 @@ class TabMain(QWidget):
         f_layout_save.addRow(self.checkbox_save_to_file)
         self.group_save.setLayout(f_layout_save)
 
-        v_layout_mode = QVBoxLayout()
+        v_layout_mode = AVBoxLayout()
         v_layout_mode.addWidget(self.t_button_step_mode)
         v_layout_mode.addWidget(self.t_button_cycle_mode)
         v_layout_mode.addWidget(self.t_button_only_lcr_mode)
         v_layout_mode.setAlignment(Qt.AlignHCenter)
         self.group_mode.setLayout(v_layout_mode)
 
-        v_layout_lcr_state = QVBoxLayout()
+        v_layout_lcr_state = AVBoxLayout()
         v_layout_lcr_state.addWidget(self.t_button_lcr_state)
         v_layout_lcr_state.setAlignment(Qt.AlignHCenter)
         self.group_lcr_state.setLayout(v_layout_lcr_state)
 
         f_layout_repeat = QFormLayout()
-        f_layout_repeat.addRow("Interval", add_qLabel(self.spinbox_interval, "msec"))
+        f_layout_repeat.addRow("Interval", add_unit(self.spinbox_interval, "msec"))
         self.group_measure_interval.setLayout(f_layout_repeat)
 
-        v_layout = QVBoxLayout(self)
+        v_layout = AVBoxLayout(self)
         v_layout.addWidget(self.group_save)
         v_layout.addWidget(self.group_mode)
         v_layout.addWidget(self.group_lcr_state)
@@ -109,7 +117,7 @@ class TabLCR(QWidget):
         f_layout_option.addRow(self.checkbox_acquire_monitor_data)
         self.group_option.setLayout(f_layout_option)
 
-        v_layout = QVBoxLayout(self)
+        v_layout = AVBoxLayout(self)
         v_layout.addWidget(self.group_parameter)
         v_layout.addWidget(self.group_only_lcr)
         v_layout.addWidget(self.group_option)
@@ -126,15 +134,15 @@ class TabStageStep(QWidget):
         # setup
         self.spinbox_distance.setRange(1, 100000)
         self.spinbox_step_num.setRange(1, 100000)
-        self.int_slider.set_range(1, 50000)
+        self.int_slider.range = 1, 50000
         self.spinbox_stop_interval.setRange(0, 10000)
 
         # setup layout
         f_layout = QFormLayout(self)
-        f_layout.addRow("Displacement", add_qLabel(self.spinbox_distance, "μm"))
-        f_layout.addRow("Number of Steps", add_qLabel(self.spinbox_step_num, "times"))
-        f_layout.addRow("Speed", add_qLabel(self.int_slider, "μm/sec"))
-        f_layout.addRow("Stop Interval", add_qLabel(self.spinbox_stop_interval, "msec"))
+        f_layout.addRow("Displacement", add_unit(self.spinbox_distance, "μm"))
+        f_layout.addRow("Number of Steps", add_unit(self.spinbox_step_num, "times"))
+        f_layout.addRow("Speed", add_unit(self.int_slider, "μm/sec"))
+        f_layout.addRow("Stop Interval", add_unit(self.spinbox_stop_interval, "msec"))
 
 
 class TabStageCycle(QWidget):
@@ -148,22 +156,22 @@ class TabStageCycle(QWidget):
         # setup
         self.spinbox_distance.setRange(1, 100000)
         self.spinbox_cycle_num.setRange(1, 100000)
-        self.int_slider.set_range(1, 50000)
+        self.int_slider.range = 1, 50000
         self.spinbox_stop_interval.setRange(0, 10000)
 
         # setup layout
         f_layout = QFormLayout(self)
-        f_layout.addRow("Displacement", add_qLabel(self.spinbox_distance, "μm"))
-        f_layout.addRow("Number of Cycle", add_qLabel(self.spinbox_cycle_num, "times"))
-        f_layout.addRow("Speed", add_qLabel(self.int_slider, "μm/sec"))
-        f_layout.addRow("Stop Interval", add_qLabel(self.spinbox_stop_interval, "msec"))
+        f_layout.addRow("Displacement", add_unit(self.spinbox_distance, "μm"))
+        f_layout.addRow("Number of Cycle", add_unit(self.spinbox_cycle_num, "times"))
+        f_layout.addRow("Speed", add_unit(self.int_slider, "μm/sec"))
+        f_layout.addRow("Stop Interval", add_unit(self.spinbox_stop_interval, "msec"))
 
 
 class MainWindowUI:
     def setup_ui(self, win: QMainWindow, settings: Settings) -> None:
         self.statusbar = CustomStatusBar(win)
-        self.toolbar_dialog = ToolBar(win)
-        self.toolbar_run = ToolBar(win)
+        self.toolbar_dialog = AToolBar(win)
+        self.toolbar_run = AToolBar(win)
         self.tab = QTabWidget()
         self.tab_main = TabMain()
         self.tab_lcr = TabLCR()
@@ -182,19 +190,19 @@ class MainWindowUI:
         # setup settings
         self.console.setMaximumBlockCount(settings.console.maximum_number_of_line)
         self.tab_main.spinbox_interval.setValue(settings.main.measure_interval)
-        self.tab_stage_step.int_slider.set_current_value(
+        self.tab_stage_step.int_slider.update_current_value(
             settings.stage_controller.maximum_speed
         )
-        self.tab_stage_cycle.int_slider.set_current_value(
+        self.tab_stage_cycle.int_slider.update_current_value(
             settings.stage_controller.maximum_speed
         )
 
         # setup layout
-        v_layout = QVBoxLayout()
+        v_layout = AVBoxLayout()
         v_layout.addWidget(self.console)
         self.group_measurements_data.setLayout(v_layout)
 
-        h_layout = QHBoxLayout()
+        h_layout = AHBoxLayout()
         h_layout.addWidget(self.tab)
         h_layout.addWidget(self.group_measurements_data)
         central_widget = QWidget()
@@ -205,15 +213,15 @@ class MainWindowUI:
 def test():
     import sys
 
-    from AutoLab.utils.qthelpers import qapplication
+    from AutoLab.utils.qthelpers import create_qt_app
     from tester.config.manager import get_settings
 
-    app = qapplication()
+    app = create_qt_app()
     win = QMainWindow()
     settings = get_settings()
     MainWindowUI().setup_ui(win, settings)
     win.show()
-    sys.exit(app.exec())
+    sys.exit(app.exec_())
 
 
 if __name__ == "__main__":

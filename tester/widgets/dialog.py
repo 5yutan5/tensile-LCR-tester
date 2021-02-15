@@ -1,5 +1,5 @@
 from AutoLab.widgets.dialog import CriticalErrorMessageBox
-from PyQt5.QtWidgets import QWidget
+from PySide6.QtWidgets import QWidget
 from tester.widgets.status import CustomStatusBar
 
 
@@ -15,10 +15,10 @@ class DeviceErrorMessageBox(CriticalErrorMessageBox):
 def test():
     import sys
 
-    from AutoLab.utils.qthelpers import qapplication
+    from AutoLab.utils.qthelpers import create_qt_app
 
-    app = qapplication()
-    sys.exit(app.exec())
+    app = create_qt_app()
+    sys.exit(app.exec_())
 
 
 if __name__ == "__main__":

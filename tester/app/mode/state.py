@@ -1,11 +1,11 @@
 from io import TextIOWrapper
 
-from AutoLab.utils.icon_manager import IconName, icon
-from AutoLab.utils.qthelpers import create_timer, reconnect_slot, sleep_nonblock_window
+from AutoLab.utils.qthelpers import (create_timer, reconnect_slot,
+                                     sleep_nonblock_window)
 from DeviceController.hioki_lcrmeter import PARAMETER, LCRMeterIM3536
 from DeviceController.optoSigma_stage_controller import StageControllerShot702
-from PyQt5.QtCore import QObject, pyqtSlot
-from PyQt5.QtWidgets import QMainWindow
+from PySide6.QtCore import QObject, Slot
+from PySide6.QtWidgets import QMainWindow
 from serial import SerialException
 from serial.serialutil import PortNotOpenError
 from tester.widgets.dialog import DeviceErrorMessageBox
@@ -87,8 +87,7 @@ class ModeState(QObject):
 
     def stop(self) -> None:
         self.timer_measure.stop()
-        self.mainwindow.action_running_state.setIcon(icon(IconName.STATUS_RUN))
-        self.mainwindow.action_running_state.setText("Stopping")
+        self.mainwindow.status_widget_measure.change_stopping()
         self.mainwindow.action_run.setEnabled(True)
         self.mainwindow.action_stop.setEnabled(False)
         self.mainwindow.action_continue.setEnabled(False)
@@ -99,7 +98,7 @@ class ModeState(QObject):
         except Exception as e:
             DeviceErrorMessageBox(
                 str(e), self.mainwindow, self.mainwindow.ui.statusbar
-            ).exec()
+            ).exec_()
 
     def setup_lcr(self) -> None:
         settings_lcr = self.mainwindow.settings.lcr_meter
@@ -118,8 +117,8 @@ class ModeState(QObject):
         )
 
     def reconnect_slot(self) -> None:
-        reconnect_slot(self.mainwindow.action_run.triggered, self.run)
-        reconnect_slot(self.mainwindow.action_stop.triggered, self.stop)
+        reconnect_slot(self.mainwindow.action_run.triggered, self.run)  # type: ignore
+        reconnect_slot(self.mainwindow.action_stop.triggered, self.stop)  # type: ignore
         reconnect_slot(self.mainwindow.action_continue.triggered, self.continue_run)
 
 
@@ -127,10 +126,10 @@ class StageMode(ModeState):
     def __init__(self, mainwindow: QMainWindow) -> None:
         super().__init__(mainwindow)
         self.timer_move_stage = create_timer(mainwindow)
-        self.timer_measure.timeout.connect(self.measure)
+        self.timer_measure.timeout.connect(self.measure)  # type: ignore
         self.move_counter = 0
 
-    @pyqtSlot()
+    @Slot()  # type:ignore
     def measure(self) -> None:
         try:
             data = self.measure_handler.measure()
@@ -141,17 +140,16 @@ class StageMode(ModeState):
         except (PortNotOpenError, SerialException) as e:
             DeviceErrorMessageBox(
                 str(e), self.mainwindow, self.mainwindow.ui.statusbar
-            ).exec()
+            ).exec_()
             self.mainwindow.action_stop.trigger()
 
     def setup(self) -> None:
-        self.mainwindow.action_measure_mode_state.setIcon(icon(IconName.DYNAMIC_GROUP))
         if self.mainwindow.lcrmeter_status.is_connecting:
             self.mainwindow.action_mode_lcr_state.setEnabled(True)
         else:
             self.mainwindow.action_mode_lcr_state.setChecked(False)
 
-    @pyqtSlot()
+    @Slot()  # type: ignore
     def stop(self) -> None:
         super().stop()
         self.timer_move_stage.stop()
@@ -161,15 +159,15 @@ class StageMode(ModeState):
         except (PortNotOpenError, SerialException) as e:
             DeviceErrorMessageBox(
                 str(e), self.mainwindow, self.mainwindow.ui.statusbar
-            ).exec()
+            ).exec_()
 
 
 class StepMode(StageMode):
     def __init__(self, mainwindow: QMainWindow) -> None:
         super().__init__(mainwindow)
-        self.timer_move_stage.timeout.connect(self._move_stage)
+        self.timer_move_stage.timeout.connect(self._move_stage)  # type: ignore
 
-    @pyqtSlot()
+    @Slot()  # type: ignore
     def _move_stage(self) -> None:
         try:
             tab_step = self.mainwindow.ui.tab_stage_step
@@ -186,10 +184,10 @@ class StepMode(StageMode):
         except SerialException as e:
             DeviceErrorMessageBox(
                 str(e), self.mainwindow, self.mainwindow.ui.statusbar
-            ).exec()
+            ).exec_()
             self.mainwindow.action_stop.trigger()
 
-    @pyqtSlot()
+    @Slot()  # type: ignore
     def run(self) -> None:
         settings_stage = self.mainwindow.settings.stage_controller
         tab_lcr = self.mainwindow.ui.tab_lcr
@@ -199,7 +197,7 @@ class StepMode(StageMode):
             self.mainwindow.stage_controller.initialize()
             self.mainwindow.stage_controller.set_stage_speed(
                 settings_stage.minimum_speed,
-                self.mainwindow.ui.tab_stage_step.int_slider.get_value(),
+                self.mainwindow.ui.tab_stage_step.int_slider.current_value,
                 settings_stage.acceleration_and_deceleration_time,
             )
             self.mainwindow.stage_controller.fix_zero()
@@ -214,7 +212,7 @@ class StepMode(StageMode):
             )
             if self.mainwindow.ui.tab_main.checkbox_save_to_file.isChecked():
                 self.file_object = open(
-                    file=self.mainwindow.ui.tab_main.pathname_line.text(),
+                    file=self.mainwindow.ui.tab_main.pathname_line._line_edit.text(),
                     mode="w",
                     encoding="utf-8",
                 )
@@ -228,10 +226,9 @@ class StepMode(StageMode):
         except SerialException as e:
             DeviceErrorMessageBox(
                 str(e), self.mainwindow, self.mainwindow.ui.statusbar
-            ).exec()
+            ).exec_()
         else:
-            self.mainwindow.action_running_state.setIcon(icon(IconName.LOADING))
-            self.mainwindow.action_running_state.setText("Running")
+            self.mainwindow.status_widget_measure.change_running()
             self.mainwindow.ui.console.clear()
             self.timer_measure.enable_counter = True
             self.timer_measure.start(
@@ -248,14 +245,15 @@ class StepMode(StageMode):
         self.mainwindow.ui.tab.addTab(
             self.mainwindow.ui.tab_stage_step, "Stage Controller"
         )
+        self.mainwindow.status_widget_measure_mode.change_step_mode()
 
 
 class CycleMode(StageMode):
     def __init__(self, mainwindow: QMainWindow) -> None:
         super().__init__(mainwindow)
-        self.timer_move_stage.timeout.connect(self._move_stage)
+        self.timer_move_stage.timeout.connect(self._move_stage)  # type: ignore
 
-    @pyqtSlot()
+    @Slot()  # type: ignore
     def _move_stage(self) -> None:
         try:
             tab_cycle = self.mainwindow.ui.tab_stage_cycle
@@ -274,10 +272,10 @@ class CycleMode(StageMode):
         except SerialException as e:
             DeviceErrorMessageBox(
                 str(e), self.mainwindow, self.mainwindow.ui.statusbar
-            ).exec()
+            ).exec_()
             self.mainwindow.action_stop.trigger()
 
-    @pyqtSlot()
+    @Slot()  # type: ignore
     def run(self) -> None:
         settings_stage = self.mainwindow.settings.stage_controller
         tab_lcr = self.mainwindow.ui.tab_lcr
@@ -287,7 +285,7 @@ class CycleMode(StageMode):
             self.mainwindow.stage_controller.initialize()
             self.mainwindow.stage_controller.set_stage_speed(
                 settings_stage.minimum_speed,
-                self.mainwindow.ui.tab_stage_cycle.int_slider.get_value(),
+                self.mainwindow.ui.tab_stage_cycle.int_slider.current_value,
                 settings_stage.acceleration_and_deceleration_time,
             )
             self.mainwindow.stage_controller.fix_zero()
@@ -302,7 +300,7 @@ class CycleMode(StageMode):
             )
             if self.mainwindow.ui.tab_main.checkbox_save_to_file.isChecked():
                 self.file_object = open(
-                    file=self.mainwindow.ui.tab_main.pathname_line.text(),
+                    file=self.mainwindow.ui.tab_main.pathname_line._line_edit.text(),
                     mode="w",
                     encoding="utf-8",
                 )
@@ -316,10 +314,9 @@ class CycleMode(StageMode):
         except SerialException as e:
             DeviceErrorMessageBox(
                 str(e), self.mainwindow, self.mainwindow.ui.statusbar
-            ).exec()
+            ).exec_()
         else:
-            self.mainwindow.action_running_state.setIcon(icon(IconName.LOADING))
-            self.mainwindow.action_running_state.setText("Running")
+            self.mainwindow.status_widget_measure.change_running()
             self.mainwindow.ui.console.clear()
             self.timer_measure.enable_counter = True
             self.timer_measure.start(
@@ -337,14 +334,15 @@ class CycleMode(StageMode):
         self.mainwindow.ui.tab.addTab(
             self.mainwindow.ui.tab_stage_cycle, "Stage Controller"
         )
+        self.mainwindow.status_widget_measure_mode.change_step_mode()
 
 
 class LCRMode(ModeState):
     def __init__(self, mainwindow: QMainWindow) -> None:
         super().__init__(mainwindow)
-        self.timer_measure.timeout.connect(self.measure)
+        self.timer_measure.timeout.connect(self.measure)  # type: ignore
 
-    @pyqtSlot()
+    @Slot()  # type:ignore
     def measure(self) -> None:
         try:
             tab_lcr = self.mainwindow.ui.tab_lcr
@@ -353,15 +351,18 @@ class LCRMode(ModeState):
             if self.mainwindow.ui.tab_main.checkbox_save_to_file.isChecked():
                 data += "\n"
                 self.file_object.write(data)
-            if self.timer_measure.counter == tab_lcr.spinbox_measurements_num.value():
+            if (
+                self.timer_measure.current_count
+                == tab_lcr.spinbox_measurements_num.value()
+            ):
                 self.mainwindow.action_stop.trigger()
         except (PortNotOpenError, SerialException) as e:
             DeviceErrorMessageBox(
                 str(e), self.mainwindow, self.mainwindow.ui.statusbar
-            ).exec()
+            ).exec_()
             self.mainwindow.action_stop.trigger()
 
-    @pyqtSlot()
+    @Slot()  # type:ignore
     def run(self) -> None:
         tab_lcr = self.mainwindow.ui.tab_lcr
         try:
@@ -376,7 +377,7 @@ class LCRMode(ModeState):
             )
             if self.mainwindow.ui.tab_main.checkbox_save_to_file.isChecked():
                 self.file_object = open(
-                    file=self.mainwindow.ui.tab_main.pathname_line.text(),
+                    file=self.mainwindow.ui.tab_main.pathname_line._line_edit.text(),
                     mode="w",
                     encoding="utf-8",
                 )
@@ -390,10 +391,9 @@ class LCRMode(ModeState):
         except SerialException as e:
             DeviceErrorMessageBox(
                 str(e), self.mainwindow, self.mainwindow.ui.statusbar
-            ).exec()
+            ).exec_()
         else:
-            self.mainwindow.action_running_state.setIcon(icon(IconName.LOADING))
-            self.mainwindow.action_running_state.setText("Running")
+            self.mainwindow.status_widget_measure.change_running()
             self.mainwindow.ui.console.clear()
             if not self.mainwindow.ui.tab_lcr.checkbox_parmanent.isChecked():
                 self.timer_measure.enable_counter = True
@@ -410,4 +410,4 @@ class LCRMode(ModeState):
     def setup(self) -> None:
         self.mainwindow.action_mode_lcr_state.setChecked(True)
         self.mainwindow.action_mode_lcr_state.setEnabled(False)
-        self.mainwindow.action_measure_mode_state.setIcon(icon(IconName.DYNAMIC))
+        self.mainwindow.status_widget_measure_mode.change_lcr_mode()

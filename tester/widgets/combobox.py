@@ -1,5 +1,5 @@
 from DeviceController.hioki_lcrmeter import PARAMETER
-from PyQt5.QtWidgets import QComboBox
+from PySide6.QtWidgets import QComboBox
 
 
 class IM3536ParameterCombobox(QComboBox):
