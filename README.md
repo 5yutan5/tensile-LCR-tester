@@ -24,42 +24,30 @@ It is necessary to install the driver for the device in advance.
 **Important Note**: Most all of the dependencies listed below will not be installed automatically. So you need to install them.
 
 - Python 3.9+
-- PyQt5 5.9+
+- PySide6 6.0.1+
 - psutil 5.8+
 - pyserial 3.5+
-- qdarkstyle
-- qtpy
 - [5yutan5/AutoLab](https://github.com/5yutan5/AutoLab)
 - [5yutan5/DeviceController](https://github.com/5yutan5/DeviceController)
 
 ## Installation
 
 It can be installed with both pip and conda, but installing with conda is deprecated.
-If you are a beginner in python, please refer to the [installation guide](https://github.com/5yutan5/tensile-LCR-tester/blob/main/INSTALLATION_GUIDE.md) to get started.
+Please refer to the [installation guide](https://github.com/5yutan5/tensile-LCR-tester/blob/main/INSTALLATION_GUIDE.md) for installation details.
 
-### Use conda
-
-```
-pip install git+https://github.com/5yutan5/AutoLab git+https://github.com/5yutan5/DeviceController git+https://github.com/5yutan5/tensile-LCR-tester
-```
-and
-```
-conda install pyqt psutil pyserial qtpy qdarkstyle
-```
-
-### Use pip
+### Installation method
 
 ```
 pip install git+https://github.com/5yutan5/AutoLab git+https://github.com/5yutan5/DeviceController git+https://github.com/5yutan5/tensile-LCR-tester
 ```
 and
 ```
-pip install pyqt5 psutil pyserial qtpy qdarkstyle
+pip install pyside6 psutil pyserial
 ```
 
 ## Get started
 
-The following command enter the terminal.
+After all the installation is complete, the following command enter the terminal.
 
 ```
 tltester
