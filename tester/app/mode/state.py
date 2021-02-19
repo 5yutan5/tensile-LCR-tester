@@ -1,7 +1,6 @@
 from io import TextIOWrapper
 
-from AutoLab.utils.qthelpers import (create_timer, reconnect_slot,
-                                     sleep_nonblock_window)
+from AutoLab.utils.qthelpers import create_timer, reconnect_slot, sleep_nonblock_window
 from DeviceController.hioki_lcrmeter import PARAMETER, LCRMeterIM3536
 from DeviceController.optoSigma_stage_controller import StageControllerShot702
 from PySide6.QtCore import QObject, Slot
@@ -181,6 +180,7 @@ class StepMode(StageMode):
                 )
                 if self.move_counter == tab_step.spinbox_step_num.value() + 1:
                     self.mainwindow.action_stop.trigger()
+                    self.mainwindow.stage_controller.move_stage(0)
         except SerialException as e:
             DeviceErrorMessageBox(
                 str(e), self.mainwindow, self.mainwindow.ui.statusbar
@@ -269,6 +269,7 @@ class CycleMode(StageMode):
                 )
                 if self.move_counter == tab_cycle.spinbox_cycle_num.value() * 2 + 1:
                     self.mainwindow.action_stop.trigger()
+                    self.mainwindow.stage_controller.move_stage(0)
         except SerialException as e:
             DeviceErrorMessageBox(
                 str(e), self.mainwindow, self.mainwindow.ui.statusbar
