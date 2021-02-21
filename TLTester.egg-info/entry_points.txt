@@ -1,0 +1,3 @@
+[gui_scripts]
+tltester = tester.app.start:main
+
