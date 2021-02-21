@@ -23,16 +23,10 @@ After installing the installer,  you install python following the guide.
 After the python installation is complete, you launch a command prompt to install the library.
 You will use the launched terminal to install the library.
 
-First, you will install self made library from github using the pip command.
+Install tltester from github using the pip command.
 
 ```
-pip install git+https://github.com/5yutan5/AutoLab git+https://github.com/5yutan5/DeviceController git+https://github.com/5yutan5/tensile-LCR-tester
-```
-
-Next, you install the dependent libraries from PyPI.
-
-```
-pip install pyside6 psutil pyserial
+git+https://github.com/5yutan5/tensile-LCR-tester
 ```
 
 The installation is now complete.
