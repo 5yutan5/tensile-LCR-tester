@@ -10,15 +10,15 @@ class MeasureModeStatus(StatusBarWidget):
         super().__init__("Measure Mode")
 
     def change_cycle_mode(self):
-        self.update_icon(create_qicon(IconNames.DYNAMIC_GROUP))
+        self.update_icon(create_qicon(IconNames.DYNAMIC_GROUP_WHITE))
         self.update_tool_tip("Cycle Mode")
 
     def change_lcr_mode(self):
-        self.update_icon(create_qicon(IconNames.DYNAMIC))
+        self.update_icon(create_qicon(IconNames.DYNAMIC_GROUP_WHITE))
         self.update_tool_tip("Only LCR Mode")
 
     def change_step_mode(self):
-        self.update_icon(create_qicon(IconNames.DYNAMIC_GROUP))
+        self.update_icon(create_qicon(IconNames.DYNAMIC_GROUP_WHITE))
         self.update_tool_tip("Step Mode")
 
 
