@@ -38,7 +38,7 @@ Please refer to the [installation guide](https://github.com/5yutan5/tensile-LCR-
 ### Installation method
 
 ```
-git+https://github.com/5yutan5/tensile-LCR-tester
+pip install git+https://github.com/5yutan5/tensile-LCR-tester
 ```
 
 ## Get started

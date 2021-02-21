@@ -26,7 +26,7 @@ You will use the launched terminal to install the library.
 Install tltester from github using the pip command.
 
 ```
-git+https://github.com/5yutan5/tensile-LCR-tester
+pip install git+https://github.com/5yutan5/tensile-LCR-tester
 ```
 
 The installation is now complete.
