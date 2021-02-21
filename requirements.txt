@@ -6,3 +6,4 @@ pyserial == 3.5
 # Self-made library
 # git@git+https://github.com/5yutan5/AutoLab
 # git@git+https://github.com/5yutan5/DeviceController
+AutoLab
