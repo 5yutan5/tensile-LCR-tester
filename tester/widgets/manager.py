@@ -45,9 +45,9 @@ class DeviceConnectingManager(QDialog):
 
         self._lcr_combobox_port = PortCombobox(LCRMeterIM3536.PORT_FILTER)
         self._lcr_combobox_baudrate = QComboBox()
-        self._lcr_t_button_connect = create_tool_button(is_text_beside_icon=True)
+        self._lcr_t_btn_connect = create_tool_button(is_text_beside_icon=True)
         self._stage_combobox_port = PortCombobox("")
-        self._stage_t_button_connect = create_tool_button(is_text_beside_icon=True)
+        self._stage_t_btn_connect = create_tool_button(is_text_beside_icon=True)
 
         self._action_connect_lcr = create_action(
             self,
@@ -84,12 +84,12 @@ class DeviceConnectingManager(QDialog):
         if (description := self._stage_controller_status.description) is not None:
             self._stage_combobox_port.setCurrentText(description)
 
-        self._lcr_t_button_connect.setDefaultAction(
+        self._lcr_t_btn_connect.setDefaultAction(
             self._action_disconnect_lcr
             if self._lcrmeter_status.is_connecting
             else self._action_connect_lcr
         )
-        self._stage_t_button_connect.setDefaultAction(
+        self._stage_t_btn_connect.setDefaultAction(
             self._action_disconnect_stage_controller
             if self._stage_controller_status.is_connecting
             else self._action_connect_stage_controller
@@ -103,13 +103,13 @@ class DeviceConnectingManager(QDialog):
         f_layout_lcr = QFormLayout()
         f_layout_lcr.addRow("Port", self._lcr_combobox_port)
         f_layout_lcr.addRow("Baudrate", self._lcr_combobox_baudrate)
-        f_layout_lcr.addWidget(self._lcr_t_button_connect)
+        f_layout_lcr.addWidget(self._lcr_t_btn_connect)
         group_lcr = QGroupBox("LCRMeter")
         group_lcr.setLayout(f_layout_lcr)
 
         f_layout_stage = QFormLayout()
         f_layout_stage.addRow("Port    ", self._stage_combobox_port)
-        f_layout_stage.addWidget(self._stage_t_button_connect)
+        f_layout_stage.addWidget(self._stage_t_btn_connect)
         group_stage = QGroupBox("Linear Stage")
         group_stage.setLayout(f_layout_stage)
 
@@ -128,7 +128,7 @@ class DeviceConnectingManager(QDialog):
         except SerialException as e:
             DeviceErrorMessageBox(str(e), self).exec_()
         else:
-            self._lcr_t_button_connect.setDefaultAction(self._action_disconnect_lcr)
+            self._lcr_t_btn_connect.setDefaultAction(self._action_disconnect_lcr)
             self._lcrmeter_status.is_connecting = True
 
     @Slot()  # type: ignore
@@ -138,7 +138,7 @@ class DeviceConnectingManager(QDialog):
         except SerialException as e:
             DeviceErrorMessageBox(str(e), self).exec_()
         else:
-            self._lcr_t_button_connect.setDefaultAction(self._action_connect_lcr)
+            self._lcr_t_btn_connect.setDefaultAction(self._action_connect_lcr)
             self._lcrmeter_status.is_connecting = False
 
     @Slot()  # type: ignore
@@ -148,7 +148,7 @@ class DeviceConnectingManager(QDialog):
         except SerialException as e:
             DeviceErrorMessageBox(str(e), self).exec_()
         else:
-            self._stage_t_button_connect.setDefaultAction(
+            self._stage_t_btn_connect.setDefaultAction(
                 self._action_disconnect_stage_controller
             )
             self._stage_controller_status.is_connecting = True
@@ -160,7 +160,7 @@ class DeviceConnectingManager(QDialog):
         except SerialException as e:
             DeviceErrorMessageBox(str(e), self).exec_()
         else:
-            self._stage_t_button_connect.setDefaultAction(
+            self._stage_t_btn_connect.setDefaultAction(
                 self._action_connect_stage_controller
             )
             self._stage_controller_status.is_connecting = False
@@ -192,20 +192,20 @@ class StageControlManager(QDialog):
         self._controller_status = controller_status
         self._lcd_position = ALabel()
         self._int_slider = IntSlider()
-        self._t_button_up = create_tool_button(
+        self._t_btn_up = create_tool_button(
             arrow_type=Qt.UpArrow,
             fixed_height=50,
             fixed_width=50,
             toggled=self.up_stage,
         )
-        self._t_button_down = create_tool_button(
+        self._t_btn_down = create_tool_button(
             arrow_type=Qt.DownArrow,
             fixed_height=50,
             fixed_width=50,
             icon_size=QSize(30, 30),
             toggled=self.down_stage,
         )
-        self._t_button_stop = create_tool_button(
+        self._t_btn_stop = create_tool_button(
             fixed_width=50,
             fixed_height=50,
             icon=create_qicon(IconNames.STOP_WHITE),
@@ -230,16 +230,16 @@ class StageControlManager(QDialog):
         # setup
         self._int_slider.range = 1, 50000
         button_group = QButtonGroup(self)
-        button_group.addButton(self._t_button_up)
-        button_group.addButton(self._t_button_stop)
-        button_group.addButton(self._t_button_down)
+        button_group.addButton(self._t_btn_up)
+        button_group.addButton(self._t_btn_stop)
+        button_group.addButton(self._t_btn_down)
         button_group.setExclusive(True)
 
         # setup layout
         v_layout_control = AVBoxLayout()
-        v_layout_control.addWidget(self._t_button_up)
-        v_layout_control.addWidget(self._t_button_stop)
-        v_layout_control.addWidget(self._t_button_down)
+        v_layout_control.addWidget(self._t_btn_up)
+        v_layout_control.addWidget(self._t_btn_stop)
+        v_layout_control.addWidget(self._t_btn_down)
         v_layout_control.setAlignment(Qt.AlignHCenter)
         group_control = QGroupBox("Control")
         group_control.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
