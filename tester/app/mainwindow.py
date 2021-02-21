@@ -57,16 +57,19 @@ class MainWindow(QMainWindow):
             ).exec_(),
         )
         self.action_mode_step = create_action(
-            self, text="Step Mode", toggled=self.change_measure_mode
+            self, text="Step Mode", toggled=self.change_measure_mode, is_checkable=True
         )
         self.action_mode_cycle = create_action(
-            self, text="Cycle Mode", toggled=self.change_measure_mode
+            self, text="Cycle Mode", toggled=self.change_measure_mode, is_checkable=True
         )
         self.action_mode_only_lcr = create_action(
-            self, text="Only LCR Meter", toggled=self.change_measure_mode
+            self,
+            text="Only LCR Meter",
+            toggled=self.change_measure_mode,
+            is_checkable=True,
         )
         self.action_mode_lcr_state = create_action(
-            self, text="LCR Meter ON", toggled=self.change_lcr_state
+            self, text="LCR Meter ON", toggled=self.change_lcr_state, is_checkable=True
         )
         self.action_run = create_action(
             self,
