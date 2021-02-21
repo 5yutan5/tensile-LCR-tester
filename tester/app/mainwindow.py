@@ -130,16 +130,15 @@ class MainWindow(QMainWindow):
         )
 
         # toolbar
-        self.addToolBar(self.ui.toolbar_dialog)
-        self.addToolBar(self.ui.toolbar_run)
-        self.ui.toolbar_dialog.addActions(
+        self.addToolBar(self.ui.toolbar)
+        self.ui.toolbar.addActions(
             [
                 self.action_open_device_connecting_magager,
                 self.action_open_control_dialog,
             ]
         )
-        self.ui.toolbar_run.addSeparator()
-        self.ui.toolbar_run.addActions(
+        self.ui.toolbar.addSeparator()
+        self.ui.toolbar.addActions(
             [self.action_run, self.action_stop, self.action_continue]
         )
 
