@@ -4,6 +4,5 @@ psutil == 5.8
 pyserial == 3.5
 
 # Self-made library
-# git@git+https://github.com/5yutan5/AutoLab
-# git@git+https://github.com/5yutan5/DeviceController
-AutoLab
+AutoLab@git+https://github.com/5yutan5/AutoLab
+DeviceController@git+https://github.com/5yutan5/DeviceController
