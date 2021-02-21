@@ -170,8 +170,7 @@ class TabStageCycle(QWidget):
 class MainWindowUI:
     def setup_ui(self, win: QMainWindow, settings: Settings) -> None:
         self.statusbar = CustomStatusBar(win)
-        self.toolbar_dialog = AToolBar(win)
-        self.toolbar_run = AToolBar(win)
+        self.toolbar = AToolBar(win)
         self.tab = QTabWidget()
         self.tab_main = TabMain()
         self.tab_lcr = TabLCR()
@@ -186,6 +185,7 @@ class MainWindowUI:
         self.tab.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         self.console.setReadOnly(True)
         self.console.setLineWrapMode(QPlainTextEdit.NoWrap)
+        self.console.setUndoRedoEnabled(False)
 
         # setup settings
         self.console.setMaximumBlockCount(settings.console.maximum_number_of_line)
