@@ -1,0 +1,8 @@
+# Third-party library
+PySide6 == 6.0.1
+psutil == 5.8
+pyserial == 3.5
+
+# Self-made library
+git://git@https://github.com/5yutan5/AutoLab.git
+git://git@https://github.com/5yutan5/DeviceController.git
