@@ -1,14 +1,14 @@
 import sys
 
-import tester.app.style_rc
 from AutoLab.utils.qthelpers import create_qt_app
+from AutoLab.utils.style_manager import add_style_sheet, load_style_sheet
 from tester.app.mainwindow import MainWindow
-from tester.app.style import darkstyle
 
 
 def main():
     app = create_qt_app()
-    app.setStyleSheet(darkstyle)
+    style_sheet = load_style_sheet("dark_theme")
+    add_style_sheet(app, style_sheet)
     win = MainWindow()
     win.show()
     win.action_open_device_connecting_magager.trigger()
