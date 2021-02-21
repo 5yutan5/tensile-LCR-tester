@@ -1,9 +1,11 @@
+import time
 from io import TextIOWrapper
 
-from AutoLab.utils.qthelpers import create_timer, reconnect_slot, sleep_nonblock_window
+from AutoLab.utils.qthelpers import (create_timer, reconnect_slot,
+                                     sleep_nonblock_window)
 from DeviceController.hioki_lcrmeter import PARAMETER, LCRMeterIM3536
 from DeviceController.optoSigma_stage_controller import StageControllerShot702
-from PySide6.QtCore import QObject, Slot
+from PySide6.QtCore import QObject, Qt, Slot
 from PySide6.QtWidgets import QMainWindow
 from serial import SerialException
 from serial.serialutil import PortNotOpenError
@@ -68,7 +70,7 @@ class ModeState(QObject):
     def __init__(self, mainwindow: QMainWindow) -> None:
         super().__init__(mainwindow)
         self.mainwindow = mainwindow
-        self.timer_measure = create_timer(mainwindow)
+        self.timer_measure = create_timer(mainwindow, timer_type=Qt.PreciseTimer)
         self.file_object: TextIOWrapper
         self.measure_handler: MeasureHandler
 
@@ -124,7 +126,7 @@ class ModeState(QObject):
 class StageMode(ModeState):
     def __init__(self, mainwindow: QMainWindow) -> None:
         super().__init__(mainwindow)
-        self.timer_move_stage = create_timer(mainwindow)
+        self.timer_move_stage = create_timer(mainwindow, timer_type=Qt.PreciseTimer)
         self.timer_measure.timeout.connect(self.measure)  # type: ignore
         self.move_counter = 0
 
@@ -228,6 +230,9 @@ class StepMode(StageMode):
                 str(e), self.mainwindow, self.mainwindow.ui.statusbar
             ).exec_()
         else:
+            self.mainwindow.action_run.setEnabled(False)
+            self.mainwindow.action_stop.setEnabled(True)
+            self.mainwindow.action_open_device_connecting_magager.setEnabled(False)
             self.mainwindow.status_widget_measure.change_running()
             self.mainwindow.ui.console.clear()
             self.timer_measure.enable_counter = True
@@ -235,9 +240,6 @@ class StepMode(StageMode):
                 self.mainwindow.ui.tab_main.spinbox_interval.value()
             )
             self.timer_move_stage.start(settings_stage.judge_busy_interval)
-            self.mainwindow.action_run.setEnabled(False)
-            self.mainwindow.action_stop.setEnabled(True)
-            self.mainwindow.action_open_device_connecting_magager.setEnabled(False)
 
     def setup(self) -> None:
         super().setup()
@@ -317,6 +319,10 @@ class CycleMode(StageMode):
                 str(e), self.mainwindow, self.mainwindow.ui.statusbar
             ).exec_()
         else:
+            self.mainwindow.action_run.setEnabled(False)
+            self.mainwindow.action_stop.setEnabled(True)
+            self.mainwindow.action_continue.setEnabled(True)
+            self.mainwindow.action_open_device_connecting_magager.setEnabled(False)
             self.mainwindow.status_widget_measure.change_running()
             self.mainwindow.ui.console.clear()
             self.timer_measure.enable_counter = True
@@ -324,10 +330,6 @@ class CycleMode(StageMode):
                 self.mainwindow.ui.tab_main.spinbox_interval.value()
             )
             self.timer_move_stage.start(settings_stage.judge_busy_interval)
-            self.mainwindow.action_run.setEnabled(False)
-            self.mainwindow.action_stop.setEnabled(True)
-            self.mainwindow.action_continue.setEnabled(True)
-            self.mainwindow.action_open_device_connecting_magager.setEnabled(False)
 
     def setup(self) -> None:
         super().setup()
@@ -394,6 +396,10 @@ class LCRMode(ModeState):
                 str(e), self.mainwindow, self.mainwindow.ui.statusbar
             ).exec_()
         else:
+            self.mainwindow.action_run.setEnabled(False)
+            self.mainwindow.action_stop.setEnabled(True)
+            self.mainwindow.action_continue.setEnabled(True)
+            self.mainwindow.action_open_device_connecting_magager.setEnabled(False)
             self.mainwindow.status_widget_measure.change_running()
             self.mainwindow.ui.console.clear()
             if not self.mainwindow.ui.tab_lcr.checkbox_parmanent.isChecked():
@@ -403,10 +409,6 @@ class LCRMode(ModeState):
             self.timer_measure.start(
                 self.mainwindow.ui.tab_main.spinbox_interval.value()
             )
-            self.mainwindow.action_run.setEnabled(False)
-            self.mainwindow.action_stop.setEnabled(True)
-            self.mainwindow.action_continue.setEnabled(True)
-            self.mainwindow.action_open_device_connecting_magager.setEnabled(False)
 
     def setup(self) -> None:
         self.mainwindow.action_mode_lcr_state.setChecked(True)
