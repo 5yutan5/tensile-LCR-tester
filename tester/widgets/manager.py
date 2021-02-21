@@ -80,9 +80,9 @@ class DeviceConnectingManager(QDialog):
         self._lcr_combobox_baudrate.addItems(LCRMeterIM3536.BAUDRATES)
         self._lcr_combobox_baudrate.setCurrentText(str(self._lcrmeter_status.baudrate))
         if (description := self._lcrmeter_status.description) is not None:
-            self._lcr_combobox_port.setCurrentText(description)
+            self._lcr_combobox_port.setItemText(0, description)
         if (description := self._stage_controller_status.description) is not None:
-            self._stage_combobox_port.setCurrentText(description)
+            self._stage_combobox_port.setItemText(0, description)
 
         self._lcr_t_btn_connect.setDefaultAction(
             self._action_disconnect_lcr
