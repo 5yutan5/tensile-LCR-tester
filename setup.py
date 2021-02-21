@@ -25,6 +25,10 @@ setup(
         "Operating System :: OS Independent",
     ],
     install_requires=REQUIREMENTS,
+    dependency_links=[
+        "git@git+https://github.com/5yutan5/AutoLab",
+        "git@git+https://github.com/5yutan5/DeviceController",
+    ],
     entry_points={"gui_scripts": ["tltester = tester.app.start:main"]},
     python_requires=">=3.9",
 )
