@@ -45,13 +45,13 @@ class MainWindow(QMainWindow):
         self.action_open_device_connecting_magager = create_action(
             self,
             text="Open Device Connecting Manager",
-            icon=create_qicon(IconNames.ADD_BEHAVIOR),
+            icon=create_qicon(IconNames.CABLE_WHITE),
             triggered=self.open_device_connectiong_manager,
         )
         self.action_open_control_dialog = create_action(
             self,
             text="Open Stage Control Manager",
-            icon=create_qicon(IconNames.EXPAND_ARROW),
+            icon=create_qicon(IconNames.MOVE_WHITE),
             triggered=lambda: StageControlManager(
                 self.stage_controller, self.stage_controller_status, self
             ).exec_(),
@@ -71,28 +71,28 @@ class MainWindow(QMainWindow):
         self.action_run = create_action(
             self,
             text="Run Only LCR Meter",
-            icon=create_qicon(IconNames.RUN),
+            icon=create_qicon(IconNames.PLAY_ARROR_GREEN),
             enable=True,
             shortcut="F5",
         )
         self.action_stop = create_action(
             self,
             text="Stop",
-            icon=create_qicon(IconNames.STOP),
+            icon=create_qicon(IconNames.STOP_RED),
             enable=False,
             shortcut="Shift+F5",
         )
         self.action_continue = create_action(
             self,
             text="Continue",
-            icon=create_qicon(IconNames.CONTINUE),
+            icon=create_qicon(IconNames.LOOP_WHITE),
             enable=False,
             shortcut="F10",
         )
         self.action_open_filedialog = create_action(
             self,
             text="Open File Dialog",
-            icon=create_qicon(IconNames.OPEN_FOLDER),
+            icon=create_qicon(IconNames.FOLDER_OPEN_SKIN),
             triggered=self.open_filedialog,
         )
 
