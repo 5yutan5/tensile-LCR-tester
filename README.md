@@ -38,11 +38,7 @@ Please refer to the [installation guide](https://github.com/5yutan5/tensile-LCR-
 ### Installation method
 
 ```
-pip install git+https://github.com/5yutan5/AutoLab git+https://github.com/5yutan5/DeviceController git+https://github.com/5yutan5/tensile-LCR-tester
-```
-and
-```
-pip install pyside6 psutil pyserial
+git+https://github.com/5yutan5/tensile-LCR-tester
 ```
 
 ## Get started
