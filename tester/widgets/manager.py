@@ -52,25 +52,25 @@ class DeviceConnectingManager(QDialog):
         self._action_connect_lcr = create_action(
             self,
             text="Connect Port",
-            icon=create_qicon(IconNames.ADD_CONNECTION),
+            icon=create_qicon(IconNames.ADD_GREEN),
             triggered=self._connect_lcr,
         )
         self._action_disconnect_lcr = create_action(
             self,
             text="Disconnect Port",
-            icon=create_qicon(IconNames.DISCONNECT),
+            icon=create_qicon(IconNames.REMOVE_RED),
             triggered=self._disconnect_lcr,
         )
         self._action_connect_stage_controller = create_action(
             self,
             text="Connect Port",
-            icon=create_qicon(IconNames.ADD_CONNECTION),
+            icon=create_qicon(IconNames.ADD_GREEN),
             triggered=self._connect_stage_controller,
         )
         self._action_disconnect_stage_controller = create_action(
             self,
             text="Disconnect Port",
-            icon=create_qicon(IconNames.DISCONNECT),
+            icon=create_qicon(IconNames.REMOVE_RED),
             triggered=self._disconnect_stage_controller,
         )
 
@@ -202,13 +202,14 @@ class StageControlManager(QDialog):
             arrow_type=Qt.DownArrow,
             fixed_height=50,
             fixed_width=50,
+            icon_size=QSize(30, 30),
             toggled=self.down_stage,
         )
         self._t_button_stop = create_tool_button(
             fixed_width=50,
             fixed_height=50,
-            icon=create_qicon(IconNames.STOP),
-            icon_size=QSize(48, 48),
+            icon=create_qicon(IconNames.STOP_WHITE),
+            icon_size=QSize(70, 70),
             toggled=self.stop_stage,
         )
         self._p_button_fix_zero = create_push_button(
