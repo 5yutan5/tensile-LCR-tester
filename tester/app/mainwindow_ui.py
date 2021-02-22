@@ -185,7 +185,7 @@ class MainWindowUI:
         self.tab.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         self.console.setReadOnly(True)
         self.console.setLineWrapMode(QPlainTextEdit.NoWrap)
-        self.console.setUndoRedoEnabled(False)
+        # self.console.setUndoRedoEnabled(False)
 
         # setup settings
         self.console.setMaximumBlockCount(settings.console.maximum_number_of_line)
