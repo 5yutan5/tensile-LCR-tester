@@ -1,6 +1,7 @@
 from io import TextIOWrapper
 
-from AutoLab.utils.qthelpers import create_timer, reconnect_slot, sleep_nonblock_window
+from AutoLab.utils.qthelpers import (create_timer, reconnect_slot,
+                                     sleep_nonblock_window)
 from DeviceController.hioki_lcrmeter import PARAMETER, LCRMeterIM3536
 from DeviceController.optoSigma_stage_controller import StageControllerShot702
 from PySide6.QtCore import QObject, Qt, Slot
@@ -215,7 +216,7 @@ class StepMode(StageMode):
                 self.file_object = open(
                     file=self.mainwindow.ui.tab_main.pathname_line._line_edit.text(),
                     mode="w",
-                    encoding="utf-8",
+                    encoding="utf-8-sig",
                 )
                 header = self.measure_handler.create_header(
                     lcr_param1=PARAMETER[tab_lcr.combobox_parameter1.currentText()],
@@ -304,7 +305,7 @@ class CycleMode(StageMode):
                 self.file_object = open(
                     file=self.mainwindow.ui.tab_main.pathname_line._line_edit.text(),
                     mode="w",
-                    encoding="utf-8",
+                    encoding="utf-8-sig",
                 )
                 header = self.measure_handler.create_header(
                     lcr_param1=PARAMETER[tab_lcr.combobox_parameter1.currentText()],
@@ -381,7 +382,7 @@ class LCRMode(ModeState):
                 self.file_object = open(
                     file=self.mainwindow.ui.tab_main.pathname_line._line_edit.text(),
                     mode="w",
-                    encoding="utf-8",
+                    encoding="utf-8-sig",
                 )
                 header = self.measure_handler.create_header(
                     lcr_param1=PARAMETER[tab_lcr.combobox_parameter1.currentText()],
