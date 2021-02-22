@@ -68,7 +68,7 @@ class ModeState(QObject):
     def __init__(self, mainwindow: QMainWindow) -> None:
         super().__init__(mainwindow)
         self.mainwindow = mainwindow
-        self.timer_measure = create_timer(mainwindow, timer_type=Qt.PreciseTimer)
+        self.timer_measure = create_timer(mainwindow)
         self.file_object: TextIOWrapper
         self.measure_handler: MeasureHandler
 
