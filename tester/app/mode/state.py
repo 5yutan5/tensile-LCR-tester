@@ -1,7 +1,6 @@
 from io import TextIOWrapper
 
-from AutoLab.utils.qthelpers import (create_timer, reconnect_slot,
-                                     sleep_nonblock_window)
+from AutoLab.utils.qthelpers import create_timer, reconnect_slot, sleep_nonblock_window
 from DeviceController.hioki_lcrmeter import PARAMETER, LCRMeterIM3536
 from DeviceController.optoSigma_stage_controller import StageControllerShot702
 from PySide6.QtCore import QObject, Qt, Slot
@@ -66,7 +65,7 @@ class MeasureHandler:
 
 
 class ModeState(QObject):
-    def __init__(self, mainwindow: MainWindow) -> None:
+    def __init__(self, mainwindow: QMainWindow) -> None:
         super().__init__(mainwindow)
         self.mainwindow = mainwindow
         self.timer_measure = create_timer(mainwindow, timer_type=Qt.PreciseTimer)
