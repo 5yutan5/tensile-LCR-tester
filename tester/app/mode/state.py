@@ -126,7 +126,7 @@ class ModeState(QObject):
 class StageMode(ModeState):
     def __init__(self, mainwindow: QMainWindow) -> None:
         super().__init__(mainwindow)
-        self.timer_move_stage = create_timer(mainwindow, timer_type=Qt.PreciseTimer)
+        self.timer_move_stage = create_timer(mainwindow)
         self.timer_measure.timeout.connect(self.measure)  # type: ignore
         self.move_counter = 0
 
