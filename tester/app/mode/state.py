@@ -1,6 +1,7 @@
 from io import TextIOWrapper
 
-from AutoLab.utils.qthelpers import create_timer, reconnect_slot, sleep_nonblock_window
+from AutoLab.utils.qthelpers import (create_timer, reconnect_slot,
+                                     sleep_nonblock_window)
 from DeviceController.hioki_lcrmeter import PARAMETER, LCRMeterIM3536
 from DeviceController.optoSigma_stage_controller import StageControllerShot702
 from PySide6.QtCore import QObject, Qt, Slot
@@ -65,7 +66,7 @@ class MeasureHandler:
 
 
 class ModeState(QObject):
-    def __init__(self, mainwindow: QMainWindow) -> None:
+    def __init__(self, mainwindow: MainWindow) -> None:
         super().__init__(mainwindow)
         self.mainwindow = mainwindow
         self.timer_measure = create_timer(mainwindow, timer_type=Qt.PreciseTimer)
@@ -102,6 +103,7 @@ class ModeState(QObject):
     def setup_lcr(self) -> None:
         settings_lcr = self.mainwindow.settings.lcr_meter
         tab_lcr = self.mainwindow.ui.tab_lcr
+        self.mainwindow.lcrmeter.set_enable_trigger_external(True)
         self.mainwindow.lcrmeter.set_options(
             timeout=settings_lcr.timeout,
             display_monitor=True,
