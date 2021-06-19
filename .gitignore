@@ -7,6 +7,9 @@ __pycache__/
 # VSCode workspace identity file
 *.code-workspace
 
+# VSCode settings folder
+*.vscode
+
 # Virtual env
 .venv/
 
