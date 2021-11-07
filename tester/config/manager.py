@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from json.decoder import JSONDecodeError
 from typing import Any
 
-USER_FILE = "LCR_LinearStage/config/user.json"
+USER_FILE = "tester/config/user.json"
 
 DEFAULT_SETTINGS = {
     "Console.maximumNumberOfLine": 200,

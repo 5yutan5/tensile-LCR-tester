@@ -27,8 +27,6 @@ It is necessary to install the driver for the device in advance.
 - PySide6 6.0.1+
 - psutil 5.8+
 - pyserial 3.5+
-- [5yutan5/AutoLab](https://github.com/5yutan5/AutoLab)
-- [5yutan5/DeviceController](https://github.com/5yutan5/DeviceController)
 
 ## Installation
 
