@@ -1,0 +1,9 @@
+/* *{
+    font-family: Consolas;
+} */
+IntSlider{
+    min-width: 400
+}
+DeviceSettingDialog{
+    min-width:400
+}

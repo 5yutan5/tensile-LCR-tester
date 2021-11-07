@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <defs>
+        <style>
+            .icon-bg {
+                fill: #424242;
+            }
+        </style>
+    </defs>
+    <path d="M0 0h24v24H0z" fill="none" />
+    <path class="icon-bg" d="M19 13H5v-2h14v2z" />
+</svg>

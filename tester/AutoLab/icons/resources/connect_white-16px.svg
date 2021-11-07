@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+    <defs>
+        <style>
+            .icon-action-white {
+                fill: #FFFFFF;
+            }
+        </style>
+    </defs>
+    <path class="icon-action-white"
+        d="M10,4V1H9V4H7V1H6V4H4V8a3.993,3.993,0,0,0,3.5,3.95V15h1V11.95A3.993,3.993,0,0,0,12,8V4ZM8,11A3,3,0,0,1,5,8V5h6V8A3,3,0,0,1,8,11Z" />
+</svg>

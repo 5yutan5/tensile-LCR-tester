@@ -1,7 +1,7 @@
 from enum import Enum, auto
 
-from AutoLab.utils.icon_manager import IconNames, create_qicon
-from AutoLab.widgets.status import StatusBar, StatusBarWidget
+from tester.AutoLab.utils.icon_manager import IconNames, create_qicon
+from tester.AutoLab.widgets.status import StatusBar, StatusBarWidget
 from PySide6.QtWidgets import QMainWindow
 
 

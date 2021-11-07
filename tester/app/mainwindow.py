@@ -1,21 +1,17 @@
 from pathlib import Path
 
-from AutoLab.utils.icon_manager import IconNames, create_qicon
-from AutoLab.utils.qthelpers import create_action
-from AutoLab.widgets.dialog import CSVSaveFileDialog
-from AutoLab.widgets.status import (
-    CPUStatus,
-    DeviceConnectStatus,
-    MeasureStatus,
-    MemoryStatus,
-)
-from DeviceController.hioki_lcrmeter import LCRMeterIM3536
-from DeviceController.optoSigma_stage_controller import StageControllerShot702
+from tester.DeviceController.hioki_lcrmeter import LCRMeterIM3536
+from tester.DeviceController.optoSigma_stage_controller import StageControllerShot702
 from PySide6.QtCore import Qt, Slot
 from PySide6.QtGui import QActionGroup
 from PySide6.QtWidgets import QMainWindow
+
 from tester.app.mainwindow_ui import MainWindowUI
 from tester.app.mode.context import ModeContext
+from tester.AutoLab.utils.icon_manager import IconNames, create_qicon
+from tester.AutoLab.utils.qthelpers import create_action
+from tester.AutoLab.widgets.dialog import CSVSaveFileDialog
+from tester.AutoLab.widgets.status import CPUStatus, DeviceConnectStatus, MeasureStatus, MemoryStatus
 from tester.config.manager import get_settings
 from tester.device.manager import DeviceStatus
 from tester.widgets.manager import DeviceConnectingManager, StageControlManager
@@ -37,9 +33,7 @@ class MainWindow(QMainWindow):
             is_connecting=False,
             port=None,
         )
-        self.stage_controller_status = DeviceStatus(
-            baudrate=None, description=None, is_connecting=False, port=None
-        )
+        self.stage_controller_status = DeviceStatus(baudrate=None, description=None, is_connecting=False, port=None)
 
         # action
         self.action_open_device_connecting_magager = create_action(
@@ -52,9 +46,7 @@ class MainWindow(QMainWindow):
             self,
             text="Open Stage Control Manager",
             icon=create_qicon(IconNames.MOVE_WHITE),
-            triggered=lambda: StageControlManager(
-                self.stage_controller, self.stage_controller_status, self
-            ).exec_(),
+            triggered=lambda: StageControlManager(self.stage_controller, self.stage_controller_status, self).exec_(),
         )
         self.action_mode_step = create_action(
             self, text="Step Mode", toggled=self.change_measure_mode, is_checkable=True
@@ -117,14 +109,10 @@ class MainWindow(QMainWindow):
         self.move(50, 50)
 
         # tab test
-        self.ui.tab_main.t_button_open_filedialog.setDefaultAction(
-            self.action_open_filedialog
-        )
+        self.ui.tab_main.t_button_open_filedialog.setDefaultAction(self.action_open_filedialog)
         self.ui.tab_main.t_button_step_mode.setDefaultAction(self.action_mode_step)
         self.ui.tab_main.t_button_cycle_mode.setDefaultAction(self.action_mode_cycle)
-        self.ui.tab_main.t_button_only_lcr_mode.setDefaultAction(
-            self.action_mode_only_lcr
-        )
+        self.ui.tab_main.t_button_only_lcr_mode.setDefaultAction(self.action_mode_only_lcr)
         self.ui.tab_main.t_button_lcr_state.setDefaultAction(self.action_mode_lcr_state)
 
         # tab lcr
@@ -141,24 +129,16 @@ class MainWindow(QMainWindow):
             ]
         )
         self.ui.toolbar.addSeparator()
-        self.ui.toolbar.addActions(
-            [self.action_run, self.action_stop, self.action_continue]
-        )
+        self.ui.toolbar.addActions([self.action_run, self.action_stop, self.action_continue])
 
         # statusbar
-        self.status_widget_device_lcr.sig_clicked.connect(  # type: ignore
-            self.open_device_connectiong_manager
-        )
-        self.status_widget_device_stage.sig_clicked.connect(  # type: ignore
-            self.open_device_connectiong_manager
-        )
+        self.status_widget_device_lcr.sig_clicked.connect(self.open_device_connectiong_manager)  # type: ignore
+        self.status_widget_device_stage.sig_clicked.connect(self.open_device_connectiong_manager)  # type: ignore
         self.status_widget_measure.sig_clicked.connect(  # type: ignore
             lambda: self.ui.statusbar.popup_actions(self.actiongroup_play.actions())
         )
         self.status_widget_measure_mode.sig_clicked.connect(  # type: ignore
-            lambda: self.ui.statusbar.popup_actions(
-                self.actiongroup_measure_mode.actions()
-            ),
+            lambda: self.ui.statusbar.popup_actions(self.actiongroup_measure_mode.actions()),
         )
         self.ui.statusbar.add_status(MemoryStatus(), self.ui.statusbar.Align.LEFT)
         self.ui.statusbar.add_status(CPUStatus(), self.ui.statusbar.Align.LEFT)
@@ -196,10 +176,7 @@ class MainWindow(QMainWindow):
             self.actiongroup_play.setEnabled(False)
             self.actiongroup_measure_mode.setEnabled(False)
             return
-        if (
-            self.lcrmeter_status.is_connecting
-            and self.stage_controller_status.is_connecting
-        ):
+        if self.lcrmeter_status.is_connecting and self.stage_controller_status.is_connecting:
             self.status_widget_device_lcr.change_connecting()
             self.status_widget_device_stage.change_connecting()
             self.ui.statusbar.change_mode(self.ui.statusbar.Mode.ENABLEMEASURE)
@@ -240,9 +217,7 @@ class MainWindow(QMainWindow):
 
     @Slot(int)  # type: ignore
     def change_lcr_parmanent(self, state: int) -> None:
-        self.ui.tab_lcr.spinbox_measurements_num.setEnabled(
-            False if state == Qt.Checked else True
-        )
+        self.ui.tab_lcr.spinbox_measurements_num.setEnabled(False if state == Qt.Checked else True)
 
     @Slot(bool)  # type: ignore
     def change_measure_mode(self, is_checked) -> None:
@@ -267,7 +242,7 @@ class MainWindow(QMainWindow):
 def test():
     import sys
 
-    from AutoLab.utils.qthelpers import create_qt_app
+    from tester.AutoLab.utils.qthelpers import create_qt_app
 
     app = create_qt_app()
     win = MainWindow()

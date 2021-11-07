@@ -1,4 +1,4 @@
-from DeviceController.hioki_lcrmeter import PARAMETER
+from tester.DeviceController.hioki_lcrmeter import PARAMETER
 from PySide6.QtWidgets import QComboBox
 
 

@@ -1,5 +1,5 @@
-from AutoLab.utils.icon_manager import IconNames, create_qicon
-from AutoLab.utils.qthelpers import (
+from tester.AutoLab.utils.icon_manager import IconNames, create_qicon
+from tester.AutoLab.utils.qthelpers import (
     add_unit,
     create_action,
     create_push_button,
@@ -7,11 +7,11 @@ from AutoLab.utils.qthelpers import (
     create_tool_button,
     popup_exception_message,
 )
-from AutoLab.widgets.combobox import PortCombobox
-from AutoLab.widgets.utility_widgets import IntSlider
-from AutoLab.widgets.wrapper_widgets import AHBoxLayout, ALabel, AVBoxLayout
-from DeviceController.hioki_lcrmeter import LCRMeterIM3536
-from DeviceController.optoSigma_stage_controller import StageControllerShot702
+from tester.AutoLab.widgets.combobox import PortCombobox
+from tester.AutoLab.widgets.utility_widgets import IntSlider
+from tester.AutoLab.widgets.wrapper_widgets import AHBoxLayout, ALabel, AVBoxLayout
+from tester.DeviceController.hioki_lcrmeter import LCRMeterIM3536
+from tester.DeviceController.optoSigma_stage_controller import StageControllerShot702
 from PySide6.QtCore import QSize, Qt, Slot
 from PySide6.QtWidgets import (
     QButtonGroup,
@@ -85,9 +85,7 @@ class DeviceConnectingManager(QDialog):
             self._stage_combobox_port.setItemText(0, description)
 
         self._lcr_t_btn_connect.setDefaultAction(
-            self._action_disconnect_lcr
-            if self._lcrmeter_status.is_connecting
-            else self._action_connect_lcr
+            self._action_disconnect_lcr if self._lcrmeter_status.is_connecting else self._action_connect_lcr
         )
         self._stage_t_btn_connect.setDefaultAction(
             self._action_disconnect_stage_controller
@@ -95,9 +93,7 @@ class DeviceConnectingManager(QDialog):
             else self._action_connect_stage_controller
         )
         self._lcr_combobox_port.currentTextChanged.connect(self._lcrmeter_port_changed)
-        self._stage_combobox_port.currentTextChanged.connect(
-            self._stage_controller_port_changed
-        )
+        self._stage_combobox_port.currentTextChanged.connect(self._stage_controller_port_changed)
 
         # setup layout
         f_layout_lcr = QFormLayout()
@@ -122,9 +118,7 @@ class DeviceConnectingManager(QDialog):
     @Slot()  # type: ignore
     def _connect_lcr(self):
         try:
-            self._lcrmeter.open(
-                self._lcrmeter_status.port, self._lcrmeter_status.baudrate
-            )
+            self._lcrmeter.open(self._lcrmeter_status.port, self._lcrmeter_status.baudrate)
         except SerialException as e:
             DeviceErrorMessageBox(str(e), self).exec_()
         else:
@@ -148,9 +142,7 @@ class DeviceConnectingManager(QDialog):
         except SerialException as e:
             DeviceErrorMessageBox(str(e), self).exec_()
         else:
-            self._stage_t_btn_connect.setDefaultAction(
-                self._action_disconnect_stage_controller
-            )
+            self._stage_t_btn_connect.setDefaultAction(self._action_disconnect_stage_controller)
             self._stage_controller_status.is_connecting = True
 
     @Slot()  # type: ignore
@@ -160,9 +152,7 @@ class DeviceConnectingManager(QDialog):
         except SerialException as e:
             DeviceErrorMessageBox(str(e), self).exec_()
         else:
-            self._stage_t_btn_connect.setDefaultAction(
-                self._action_connect_stage_controller
-            )
+            self._stage_t_btn_connect.setDefaultAction(self._action_connect_stage_controller)
             self._stage_controller_status.is_connecting = False
 
     @Slot()  # type: ignore
@@ -212,20 +202,14 @@ class StageControlManager(QDialog):
             icon_size=QSize(70, 70),
             toggled=self.stop_stage,
         )
-        self._p_button_fix_zero = create_push_button(
-            clicked=self.fix_zero, text="Fix Zero"
-        )
+        self._p_button_fix_zero = create_push_button(clicked=self.fix_zero, text="Fix Zero")
         self._p_button_move_machine_zero = create_push_button(
             clicked=self.move_to_machine_zero, text="Move Machine Zero-Point"
         )
-        self._p_button_set_speed = create_push_button(
-            clicked=self.set_stage_speed, fixed_width=100, text="Set"
-        )
+        self._p_button_set_speed = create_push_button(clicked=self.set_stage_speed, fixed_width=100, text="Set")
 
         # timer
-        self.timer_measure_position = create_timer(
-            parent=self, timeout=self.measure_position
-        )
+        self.timer_measure_position = create_timer(parent=self, timeout=self.measure_position)
 
         # setup
         self._int_slider.range = 1, 50000
@@ -306,12 +290,8 @@ class StageControlManager(QDialog):
     @popup_exception_message(DeviceErrorMessageBox, SerialException)
     def set_stage_speed(self) -> None:
         max_speed = self._int_slider.current_value
-        self._controller.set_stage_speed(
-            max_speed, max_speed, 100, self._controller.SpeedMode.MOVE
-        )
-        self._controller.set_stage_speed(
-            max_speed, max_speed, 100, self._controller.SpeedMode.RETURN_ORIGIN
-        )
+        self._controller.set_stage_speed(max_speed, max_speed, 100, self._controller.SpeedMode.MOVE)
+        self._controller.set_stage_speed(max_speed, max_speed, 100, self._controller.SpeedMode.RETURN_ORIGIN)
 
     @Slot()  # type: ignore
     @popup_exception_message(DeviceErrorMessageBox, SerialException)

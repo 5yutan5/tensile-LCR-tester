@@ -1,12 +1,13 @@
 from io import TextIOWrapper
 
-from AutoLab.utils.qthelpers import create_timer, reconnect_slot, sleep_nonblock_window
-from DeviceController.hioki_lcrmeter import PARAMETER, LCRMeterIM3536
-from DeviceController.optoSigma_stage_controller import StageControllerShot702
-from PySide6.QtCore import QObject, Qt, Slot
+from PySide6.QtCore import QObject, Slot
 from PySide6.QtWidgets import QMainWindow
 from serial import SerialException
 from serial.serialutil import PortNotOpenError
+
+from tester.AutoLab.utils.qthelpers import create_timer, reconnect_slot, sleep_nonblock_window
+from tester.DeviceController.hioki_lcrmeter import PARAMETER, LCRMeterIM3536
+from tester.DeviceController.optoSigma_stage_controller import StageControllerShot702
 from tester.widgets.dialog import DeviceErrorMessageBox
 
 
@@ -95,9 +96,7 @@ class ModeState(QObject):
             if self.mainwindow.ui.tab_main.checkbox_save_to_file.isChecked():
                 self.file_object.close()
         except Exception as e:
-            DeviceErrorMessageBox(
-                str(e), self.mainwindow, self.mainwindow.ui.statusbar
-            ).exec_()
+            DeviceErrorMessageBox(str(e), self.mainwindow, self.mainwindow.ui.statusbar).exec_()
 
     def setup_lcr(self) -> None:
         settings_lcr = self.mainwindow.settings.lcr_meter
@@ -138,9 +137,7 @@ class StageMode(ModeState):
                 data += "\n"
                 self.file_object.write(data)
         except (PortNotOpenError, SerialException) as e:
-            DeviceErrorMessageBox(
-                str(e), self.mainwindow, self.mainwindow.ui.statusbar
-            ).exec_()
+            DeviceErrorMessageBox(str(e), self.mainwindow, self.mainwindow.ui.statusbar).exec_()
             self.mainwindow.action_stop.trigger()
 
     def setup(self) -> None:
@@ -157,9 +154,7 @@ class StageMode(ModeState):
         try:
             self.mainwindow.stage_controller.stop()
         except (PortNotOpenError, SerialException) as e:
-            DeviceErrorMessageBox(
-                str(e), self.mainwindow, self.mainwindow.ui.statusbar
-            ).exec_()
+            DeviceErrorMessageBox(str(e), self.mainwindow, self.mainwindow.ui.statusbar).exec_()
 
 
 class StepMode(StageMode):
@@ -176,16 +171,12 @@ class StepMode(StageMode):
                 if not stop_interval == 0 and not self.move_counter == 0:
                     sleep_nonblock_window(stop_interval)
                 self.move_counter += 1
-                self.mainwindow.stage_controller.move_stage(
-                    tab_step.spinbox_distance.value() * self.move_counter
-                )
+                self.mainwindow.stage_controller.move_stage(tab_step.spinbox_distance.value() * self.move_counter)
                 if self.move_counter == tab_step.spinbox_step_num.value() + 1:
                     self.mainwindow.action_stop.trigger()
                     self.mainwindow.stage_controller.move_stage(0)
         except SerialException as e:
-            DeviceErrorMessageBox(
-                str(e), self.mainwindow, self.mainwindow.ui.statusbar
-            ).exec_()
+            DeviceErrorMessageBox(str(e), self.mainwindow, self.mainwindow.ui.statusbar).exec_()
             self.mainwindow.action_stop.trigger()
 
     @Slot()  # type: ignore
@@ -225,9 +216,7 @@ class StepMode(StageMode):
                 )
                 self.file_object.write(header + "\n")
         except SerialException as e:
-            DeviceErrorMessageBox(
-                str(e), self.mainwindow, self.mainwindow.ui.statusbar
-            ).exec_()
+            DeviceErrorMessageBox(str(e), self.mainwindow, self.mainwindow.ui.statusbar).exec_()
         else:
             self.mainwindow.action_run.setEnabled(False)
             self.mainwindow.action_stop.setEnabled(True)
@@ -235,17 +224,13 @@ class StepMode(StageMode):
             self.mainwindow.status_widget_measure.change_running()
             self.mainwindow.ui.console.clear()
             self.timer_measure.enable_counter = True
-            self.timer_measure.start(
-                self.mainwindow.ui.tab_main.spinbox_interval.value()
-            )
+            self.timer_measure.start(self.mainwindow.ui.tab_main.spinbox_interval.value())
             self.timer_move_stage.start(settings_stage.judge_busy_interval)
 
     def setup(self) -> None:
         super().setup()
         self.mainwindow.ui.tab.removeTab(2)
-        self.mainwindow.ui.tab.addTab(
-            self.mainwindow.ui.tab_stage_step, "Stage Controller"
-        )
+        self.mainwindow.ui.tab.addTab(self.mainwindow.ui.tab_stage_step, "Stage Controller")
         self.mainwindow.status_widget_measure_mode.change_step_mode()
 
 
@@ -264,17 +249,13 @@ class CycleMode(StageMode):
                     sleep_nonblock_window(stop_interval)
                 self.move_counter += 1
                 self.mainwindow.stage_controller.move_stage(
-                    0
-                    if self.move_counter & 1 == 0
-                    else tab_cycle.spinbox_distance.value()
+                    0 if self.move_counter & 1 == 0 else tab_cycle.spinbox_distance.value()
                 )
                 if self.move_counter == tab_cycle.spinbox_cycle_num.value() * 2 + 1:
                     self.mainwindow.action_stop.trigger()
                     self.mainwindow.stage_controller.move_stage(0)
         except SerialException as e:
-            DeviceErrorMessageBox(
-                str(e), self.mainwindow, self.mainwindow.ui.statusbar
-            ).exec_()
+            DeviceErrorMessageBox(str(e), self.mainwindow, self.mainwindow.ui.statusbar).exec_()
             self.mainwindow.action_stop.trigger()
 
     @Slot()  # type: ignore
@@ -314,9 +295,7 @@ class CycleMode(StageMode):
                 )
                 self.file_object.write(header + "\n")
         except SerialException as e:
-            DeviceErrorMessageBox(
-                str(e), self.mainwindow, self.mainwindow.ui.statusbar
-            ).exec_()
+            DeviceErrorMessageBox(str(e), self.mainwindow, self.mainwindow.ui.statusbar).exec_()
         else:
             self.mainwindow.action_run.setEnabled(False)
             self.mainwindow.action_stop.setEnabled(True)
@@ -325,17 +304,13 @@ class CycleMode(StageMode):
             self.mainwindow.status_widget_measure.change_running()
             self.mainwindow.ui.console.clear()
             self.timer_measure.enable_counter = True
-            self.timer_measure.start(
-                self.mainwindow.ui.tab_main.spinbox_interval.value()
-            )
+            self.timer_measure.start(self.mainwindow.ui.tab_main.spinbox_interval.value())
             self.timer_move_stage.start(settings_stage.judge_busy_interval)
 
     def setup(self) -> None:
         super().setup()
         self.mainwindow.ui.tab.removeTab(2)
-        self.mainwindow.ui.tab.addTab(
-            self.mainwindow.ui.tab_stage_cycle, "Stage Controller"
-        )
+        self.mainwindow.ui.tab.addTab(self.mainwindow.ui.tab_stage_cycle, "Stage Controller")
         self.mainwindow.status_widget_measure_mode.change_step_mode()
 
 
@@ -353,15 +328,10 @@ class LCRMode(ModeState):
             if self.mainwindow.ui.tab_main.checkbox_save_to_file.isChecked():
                 data += "\n"
                 self.file_object.write(data)
-            if (
-                self.timer_measure.current_count
-                == tab_lcr.spinbox_measurements_num.value()
-            ):
+            if self.timer_measure.current_count == tab_lcr.spinbox_measurements_num.value():
                 self.mainwindow.action_stop.trigger()
         except (PortNotOpenError, SerialException) as e:
-            DeviceErrorMessageBox(
-                str(e), self.mainwindow, self.mainwindow.ui.statusbar
-            ).exec_()
+            DeviceErrorMessageBox(str(e), self.mainwindow, self.mainwindow.ui.statusbar).exec_()
             self.mainwindow.action_stop.trigger()
 
     @Slot()  # type:ignore
@@ -391,9 +361,7 @@ class LCRMode(ModeState):
                 )
                 self.file_object.write(header + "\n")
         except SerialException as e:
-            DeviceErrorMessageBox(
-                str(e), self.mainwindow, self.mainwindow.ui.statusbar
-            ).exec_()
+            DeviceErrorMessageBox(str(e), self.mainwindow, self.mainwindow.ui.statusbar).exec_()
         else:
             self.mainwindow.action_run.setEnabled(False)
             self.mainwindow.action_stop.setEnabled(True)
@@ -405,9 +373,7 @@ class LCRMode(ModeState):
                 self.timer_measure.enable_counter = True
             else:
                 self.timer_measure.enable_counter = False
-            self.timer_measure.start(
-                self.mainwindow.ui.tab_main.spinbox_interval.value()
-            )
+            self.timer_measure.start(self.mainwindow.ui.tab_main.spinbox_interval.value())
 
     def setup(self) -> None:
         self.mainwindow.action_mode_lcr_state.setChecked(True)

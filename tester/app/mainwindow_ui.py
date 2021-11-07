@@ -1,6 +1,3 @@
-from AutoLab.utils.qthelpers import add_unit, create_tool_button
-from AutoLab.widgets.utility_widgets import IntSlider, PathLine
-from AutoLab.widgets.wrapper_widgets import AHBoxLayout, AToolBar, AVBoxLayout
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QCheckBox,
@@ -13,6 +10,10 @@ from PySide6.QtWidgets import (
     QTabWidget,
     QWidget,
 )
+
+from tester.AutoLab.utils.qthelpers import add_unit, create_tool_button
+from tester.AutoLab.widgets.utility_widgets import IntSlider, PathLine
+from tester.AutoLab.widgets.wrapper_widgets import AHBoxLayout, AToolBar, AVBoxLayout
 from tester.config.manager import Settings
 from tester.widgets.combobox import IM3536ParameterCombobox
 from tester.widgets.status import CustomStatusBar
@@ -81,9 +82,7 @@ class TabLCR(QWidget):
         self.combobox_parameter4 = IM3536ParameterCombobox()
         self.spinbox_measurements_num = QSpinBox()
         self.checkbox_parmanent = QCheckBox("Parmanent Measurement")
-        self.checkbox_acquire_monitor_data = QCheckBox(
-            "Acquire Voltage/Current Monitor Values"
-        )
+        self.checkbox_acquire_monitor_data = QCheckBox("Acquire Voltage/Current Monitor Values")
 
         self.group_parameter = QGroupBox("Parameter")
         self.group_only_lcr = QGroupBox("Only LCR Meter Mode")
@@ -108,9 +107,7 @@ class TabLCR(QWidget):
 
         f_layout_only_lcr = QFormLayout()
         f_layout_only_lcr.addRow(self.checkbox_parmanent)
-        f_layout_only_lcr.addRow(
-            "Number of Measurements", self.spinbox_measurements_num
-        )
+        f_layout_only_lcr.addRow("Number of Measurements", self.spinbox_measurements_num)
         self.group_only_lcr.setLayout(f_layout_only_lcr)
 
         f_layout_option = QFormLayout()
@@ -190,12 +187,8 @@ class MainWindowUI:
         # setup settings
         self.console.setMaximumBlockCount(settings.console.maximum_number_of_line)
         self.tab_main.spinbox_interval.setValue(settings.main.measure_interval)
-        self.tab_stage_step.int_slider.update_current_value(
-            settings.stage_controller.maximum_speed
-        )
-        self.tab_stage_cycle.int_slider.update_current_value(
-            settings.stage_controller.maximum_speed
-        )
+        self.tab_stage_step.int_slider.update_current_value(settings.stage_controller.maximum_speed)
+        self.tab_stage_cycle.int_slider.update_current_value(settings.stage_controller.maximum_speed)
 
         # setup layout
         v_layout = AVBoxLayout()
@@ -213,7 +206,7 @@ class MainWindowUI:
 def test():
     import sys
 
-    from AutoLab.utils.qthelpers import create_qt_app
+    from tester.AutoLab.utils.qthelpers import create_qt_app
     from tester.config.manager import get_settings
 
     app = create_qt_app()
