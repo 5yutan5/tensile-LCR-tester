@@ -1,20 +1,14 @@
 import functools
 from typing import Type
 
-from tester.AutoLab.utils.style_manager import add_style_sheet, load_style_sheet
-from tester.AutoLab.widgets.dialog import CriticalErrorMessageBox
-from tester.AutoLab.widgets.timer import CountTimer
-from tester.AutoLab.widgets.wrapper_widgets import (
-    AAction,
-    AHBoxLayout,
-    ALabel,
-    APushButton,
-    ATimer,
-    AToolButton,
-)
 from PySide6.QtCore import SLOT, QEventLoop, QObject, QSize, Qt
 from PySide6.QtGui import QIcon, QKeySequence
 from PySide6.QtWidgets import QApplication, QWidget
+
+from tester.AutoLab.utils.style_manager import add_style_sheet, load_style_sheet
+from tester.AutoLab.widgets.dialog import CriticalErrorMessageBox
+from tester.AutoLab.widgets.timer import CountTimer
+from tester.AutoLab.widgets.wrapper_widgets import AAction, AHBoxLayout, ALabel, APushButton, ATimer, AToolButton
 
 
 def add_unit(widget: QWidget, text: str) -> QWidget:
@@ -106,7 +100,7 @@ def create_timer(parent, timeout=None, enable_counter: bool = False, timer_type:
     return timer
 
 
-def create_tool_button(
+def create_tool_button(  # noqa: C901
     arrow_type: Qt.ArrowType = None,
     fixed_height: int = None,
     fixed_width: int = None,

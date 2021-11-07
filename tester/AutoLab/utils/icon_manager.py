@@ -2,7 +2,7 @@ from enum import Enum
 
 from PySide6.QtGui import QIcon
 
-import tester.AutoLab.icons.resource_icons_rc
+import tester.AutoLab.icons.resource_icons_rc  # noqa: F401
 
 
 class IconNames(Enum):

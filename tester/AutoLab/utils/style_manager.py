@@ -3,8 +3,8 @@ from typing import Union
 
 from PySide6.QtWidgets import QApplication, QWidget
 
-import tester.AutoLab.icons.dark_theme_icons_rc
-import tester.AutoLab.icons.resource_icons_rc
+import tester.AutoLab.icons.dark_theme_icons_rc  # noqa: F401
+import tester.AutoLab.icons.resource_icons_rc  # noqa: F401
 
 
 def add_style_sheet(widget: Union[QWidget, QApplication], style_sheet: str) -> None:

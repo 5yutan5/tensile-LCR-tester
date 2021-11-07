@@ -86,18 +86,14 @@ class LCRMeterIM3536:
     def close(self) -> None:
         self._ser.close()
 
-    def set_options(
-        self, timeout: int, display_monitor: bool, measure_output_auto: bool, speed: str
-    ) -> None:
+    def set_options(self, timeout: int, display_monitor: bool, measure_output_auto: bool, speed: str) -> None:
         self.measure_output_auto = measure_output_auto
         self._timeout = timeout
         self.set_enable_display_monitor(display_monitor)
         self.set_enable_measure_output_auto(measure_output_auto)
         self.set_speed(speed)
 
-    def set_parameters(
-        self, param1: str, param2: str = None, param3: str = None, param4: str = None
-    ) -> None:
+    def set_parameters(self, param1: str, param2: str = None, param3: str = None, param4: str = None) -> None:
         self._ser.send_message(f":PARameter1 {param1}")
         if param2 is not None:
             self._ser.send_message(f":PARameter2 {param2}")

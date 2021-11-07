@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-from tester.AutoLab.widgets.wrapper_widgets import AHBoxLayout, ALabel
 from PySide6.QtCore import QAbstractTableModel, QModelIndex, Qt, Signal
 from PySide6.QtGui import QColor
 from PySide6.QtWidgets import QLCDNumber, QTableView, QTableWidget, QWidget
+
+from tester.AutoLab.widgets.wrapper_widgets import AHBoxLayout, ALabel
 
 
 class ListTableModel(QAbstractTableModel):

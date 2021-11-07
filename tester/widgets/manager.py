@@ -1,17 +1,3 @@
-from tester.AutoLab.utils.icon_manager import IconNames, create_qicon
-from tester.AutoLab.utils.qthelpers import (
-    add_unit,
-    create_action,
-    create_push_button,
-    create_timer,
-    create_tool_button,
-    popup_exception_message,
-)
-from tester.AutoLab.widgets.combobox import PortCombobox
-from tester.AutoLab.widgets.utility_widgets import IntSlider
-from tester.AutoLab.widgets.wrapper_widgets import AHBoxLayout, ALabel, AVBoxLayout
-from tester.DeviceController.hioki_lcrmeter import LCRMeterIM3536
-from tester.DeviceController.optoSigma_stage_controller import StageControllerShot702
 from PySide6.QtCore import QSize, Qt, Slot
 from PySide6.QtWidgets import (
     QButtonGroup,
@@ -24,7 +10,22 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 from serial import SerialException
+
+from tester.AutoLab.utils.icon_manager import IconNames, create_qicon
+from tester.AutoLab.utils.qthelpers import (
+    add_unit,
+    create_action,
+    create_push_button,
+    create_timer,
+    create_tool_button,
+    popup_exception_message,
+)
+from tester.AutoLab.widgets.combobox import PortCombobox
+from tester.AutoLab.widgets.utility_widgets import IntSlider
+from tester.AutoLab.widgets.wrapper_widgets import AHBoxLayout, ALabel, AVBoxLayout
 from tester.device.manager import DeviceStatus
+from tester.DeviceController.hioki_lcrmeter import LCRMeterIM3536
+from tester.DeviceController.optoSigma_stage_controller import StageControllerShot702
 from tester.widgets.dialog import DeviceErrorMessageBox
 
 

@@ -1,7 +1,6 @@
 from dataclasses import dataclass
 from typing import Any, Union
 
-from tester.AutoLab.widgets.wrapper_widgets import AHBoxLayout, ALabel, AVBoxLayout
 from PySide6.QtCore import QEvent, Qt, Slot
 from PySide6.QtGui import QMouseEvent, QPainter
 from PySide6.QtWidgets import (
@@ -15,6 +14,8 @@ from PySide6.QtWidgets import (
     QStyleOption,
     QWidget,
 )
+
+from tester.AutoLab.widgets.wrapper_widgets import AHBoxLayout, ALabel, AVBoxLayout
 
 
 @dataclass
@@ -169,8 +170,9 @@ class SettingsManager(QDialog):
 def test_setting_widget():
     import sys
 
-    from tester.AutoLab.utils.qthelpers import create_qt_app
     from PySide6.QtWidgets import QFormLayout
+
+    from tester.AutoLab.utils.qthelpers import create_qt_app
 
     app = create_qt_app()
     app.setStyleSheet(

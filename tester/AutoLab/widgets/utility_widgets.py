@@ -1,6 +1,7 @@
-from tester.AutoLab.widgets.wrapper_widgets import AHBoxLayout
 from PySide6.QtCore import QMargins, Qt, Slot
 from PySide6.QtWidgets import QLineEdit, QSlider, QSpinBox, QWidget
+
+from tester.AutoLab.widgets.wrapper_widgets import AHBoxLayout
 
 
 class IntSlider(QWidget):

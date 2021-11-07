@@ -1,5 +1,6 @@
-from tester.AutoLab.widgets.wrapper_widgets import ATimer
 from PySide6.QtCore import QObject, QTimerEvent
+
+from tester.AutoLab.widgets.wrapper_widgets import ATimer
 
 
 class CountTimer(ATimer):

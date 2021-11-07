@@ -1,5 +1,6 @@
-from tester.AutoLab.widgets.dialog import CriticalErrorMessageBox
 from PySide6.QtWidgets import QWidget
+
+from tester.AutoLab.widgets.dialog import CriticalErrorMessageBox
 from tester.widgets.status import CustomStatusBar
 
 

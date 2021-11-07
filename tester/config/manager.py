@@ -32,9 +32,7 @@ class LCRMeter:
 
 class StageController:
     def __init__(self, settings) -> None:
-        self.acceleration_and_deceleration_time: int = settings[
-            "stageController.AccelerationandDecelerationTime"
-        ]
+        self.acceleration_and_deceleration_time: int = settings["stageController.AccelerationandDecelerationTime"]
         self.judge_busy_interval: int = settings["stageController.JudgeBusyInterval"]
         self.maximum_speed: int = settings["stageController.MaximumSpeed"]
         self.minimum_speed: int = settings["stageController.MinimumSpeed"]
@@ -86,13 +84,9 @@ def get_settings() -> Settings:
     merge_settings = _merge_settings(DEFAULT_SETTINGS, user_settings)
     settings_main = Main(_extraction_settings(merge_settings, "Main"))
     settings_lcr_meter = LCRMeter(_extraction_settings(merge_settings, "LCRMeter"))
-    settings_stage_controller = StageController(
-        _extraction_settings(merge_settings, "stageController")
-    )
+    settings_stage_controller = StageController(_extraction_settings(merge_settings, "stageController"))
     settings_console = Console(_extraction_settings(merge_settings, "Console"))
-    return Settings(
-        settings_main, settings_lcr_meter, settings_stage_controller, settings_console
-    )
+    return Settings(settings_main, settings_lcr_meter, settings_stage_controller, settings_console)
 
 
 def test():

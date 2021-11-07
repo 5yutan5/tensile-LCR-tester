@@ -1,9 +1,10 @@
 from typing import Iterable, Union
 
-from tester.AutoLab.utils.system import search_ports
 from PySide6.QtCore import QAbstractListModel, Qt
 from PySide6.QtWidgets import QComboBox
 from serial.tools.list_ports_common import ListPortInfo
+
+from tester.AutoLab.utils.system import search_ports
 
 
 class CheckListModel(QAbstractListModel):

@@ -1,7 +1,6 @@
 from PySide6.QtCore import QObject, Qt, QTimer
 from PySide6.QtGui import QAction
-from PySide6.QtWidgets import (QHBoxLayout, QLabel, QMenu, QPushButton,
-                               QToolBar, QToolButton, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import QHBoxLayout, QLabel, QMenu, QPushButton, QToolBar, QToolButton, QVBoxLayout, QWidget
 
 
 class AAction(QAction):
@@ -20,8 +19,9 @@ class AHBoxLayout(QHBoxLayout):
 
 class ALabel(QLabel):
     """AHBoxLayout class wrapper to handle cross platform patches"""
+
     def __init__(self, text: str = None, parent: QWidget = None) -> None:
-        super().__init__(text=text, parent=parent) # type: ignore
+        super().__init__(text=text, parent=parent)  # type: ignore
 
 
 class AMenu(QMenu):

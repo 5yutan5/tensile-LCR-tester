@@ -1,7 +1,5 @@
 from pathlib import Path
 
-from tester.DeviceController.hioki_lcrmeter import LCRMeterIM3536
-from tester.DeviceController.optoSigma_stage_controller import StageControllerShot702
 from PySide6.QtCore import Qt, Slot
 from PySide6.QtGui import QActionGroup
 from PySide6.QtWidgets import QMainWindow
@@ -14,6 +12,8 @@ from tester.AutoLab.widgets.dialog import CSVSaveFileDialog
 from tester.AutoLab.widgets.status import CPUStatus, DeviceConnectStatus, MeasureStatus, MemoryStatus
 from tester.config.manager import get_settings
 from tester.device.manager import DeviceStatus
+from tester.DeviceController.hioki_lcrmeter import LCRMeterIM3536
+from tester.DeviceController.optoSigma_stage_controller import StageControllerShot702
 from tester.widgets.manager import DeviceConnectingManager, StageControlManager
 from tester.widgets.status import MeasureModeStatus
 

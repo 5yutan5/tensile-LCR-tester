@@ -1,5 +1,4 @@
 import json
-from dataclasses import dataclass
 from json.decoder import JSONDecodeError
 from typing import Any
 
@@ -30,12 +29,3 @@ def extraction_settings(settings: dict[str, Any], target: str):
 
 def merge_settings(default_settings, user_settings) -> dict[str, Any]:
     return default_settings | user_settings
-
-
-def test():
-    settings = get_settings()
-    print(settings.stage_controller.minimum_speed)
-
-
-if __name__ == "__main__":
-    test()

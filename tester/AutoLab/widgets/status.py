@@ -1,12 +1,13 @@
 from enum import Enum, auto
 
+from PySide6.QtCore import QMargins, QPoint, Signal
+from PySide6.QtGui import QContextMenuEvent, QIcon
+from PySide6.QtWidgets import QMainWindow, QStatusBar, QWidget
+
 from tester.AutoLab.utils.icon_manager import IconNames, create_qicon
 from tester.AutoLab.utils.qthelpers import create_action, create_timer, create_tool_button
 from tester.AutoLab.utils.system import cpu_usage, phymem_usage
 from tester.AutoLab.widgets.wrapper_widgets import AAction, AHBoxLayout, AMenu
-from PySide6.QtCore import QMargins, QPoint, Signal
-from PySide6.QtGui import QContextMenuEvent, QIcon
-from PySide6.QtWidgets import QMainWindow, QStatusBar, QWidget
 
 
 class StatusBarWidget(QWidget):
