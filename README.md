@@ -1,6 +1,8 @@
 # tensile-LCR-tester
 This application controls Hioki's LCR meter and Sigma Kouki's stage controller at the same time.
 
+>⚠️ Note: This repo is not actively maintained. It's an older version of https://github.com/5yutan5/pyAutoLab.
+
 **This is an unfinished project.**
 
 ![Main Application Window](image/Main_application_window.png)
